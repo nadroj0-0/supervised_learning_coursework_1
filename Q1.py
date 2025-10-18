@@ -84,22 +84,26 @@ fig, ax = plot_models(xdata, ydata, lm, 0, 5, -5, 8, colormap='Blues')
 print(' ')
 
 
-print('Q1.2')
+print('Q2')
 import random
 from scipy.stats import norm
 
 def g(x) :
     return np.sin(2 * np.pi *x) ** 2
 
-ydata = []
-xdata = []
-for i in range(30) :
-    rand = random.uniform(0,1)
-    xdata.append(rand)
-    rande = random.uniform(0,1)
-    epsilon = norm.ppf(rande, loc=0, scale=0.07)
-    ydata.append(g(rand) + epsilon)
 
+def gen_data(N) :
+    ydata = []
+    xdata = []
+    for i in range(N) :
+        rand = random.uniform(0,1)
+        xdata.append(rand)
+        rande = random.uniform(0,1)
+        epsilon = norm.ppf(rande, loc=0, scale=0.07)
+        ydata.append(g(rand) + epsilon)
+    return xdata, ydata
+
+xdata, ydata = gen_data(30)
 print(f'x = {xdata}')
 print(f'y = {ydata}')
 
@@ -135,5 +139,51 @@ k_values = [2,5,10,14,18]
 lm = fit_lin_reg(xdata, ydata, k_values)
 fig, ax = plot_models(xdata, ydata, lm, 0, 1, -0.1, 1.1)
 
+
+print('Q2.b')
+import pandas as pd
+
+def plot_mse(k, mse, N) :
+    fig, ax = plt.subplots()
+
+    ax.plot(k, mse, color='black', linewidth=0.8)
+
+    ax.spines['right'].set_color('none')
+    ax.spines['top'].set_color('none')
+
+    ax.xaxis.set_ticks_position('bottom')
+    ax.yaxis.set_ticks_position('left')
+    ax.tick_params(axis='both', direction='inout', length=4)
+
+    ax.xaxis.set_minor_locator(ticker.AutoMinorLocator(4))
+    ax.yaxis.set_minor_locator(ticker.AutoMinorLocator(4))
+    ax.tick_params(which='minor', length=2)
+
+    ax.grid(True, linestyle=':', linewidth=0.5)
+    ax.set_xlabel('k')
+    ax.set_ylabel('ln(mse)')
+    ax.set_title(f'Natural log of the training error vs the polynomial dimensions k, N={N}')
+    return fig, ax
+
+
+df = pd.DataFrame(lm, columns=['k', 'w', 'y_hat', 'mse'])
+fig, ax = plot_mse(df['k'], np.log(df['mse']), 30)
+
+
+print('Q2.c')
+N= 100000
+xdata, ydata = gen_data(N)
+k_values = [i for i in range(1, 19)]
+lm = fit_lin_reg(xdata, ydata, k_values)
+
+df = pd.DataFrame(lm, columns=['k', 'w', 'y_hat', 'mse'])
+
+fig, ax = plot_mse(df['k'], np.log(df['mse']), N)
+
+
+print('Q2.d')
+
+
 plt.show()
 plt.close('all')
+
