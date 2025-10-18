@@ -26,8 +26,9 @@ def lin_reg_sol (theta, y) :
 
 
 # Fits a single polynomial model degree k and returns weights, predictions and MSE
-def lin_reg_sol_k(x,y,k) :
-    theta = poly_basis(x,k)
+def lin_reg_sol_k(x,y,k, basis_func=poly_basis) :
+    # theta = poly_basis(x,k)
+    theta = basis_func(x,k)
     print('Theta = ')
     print(theta)
     w = lin_reg_sol(theta,y)
@@ -37,11 +38,11 @@ def lin_reg_sol_k(x,y,k) :
 
 
 # Fits multiple polynomial models of degree k for a defined set of k values, returns weights, predictions and MSE for each model
-def fit_lin_reg(xdata, ydata, k_values, ) :
+def fit_lin_reg(xdata, ydata, k_values, basis_func=poly_basis) :
     results = []
     for k in k_values:
         print('for k=', k)
-        sol = lin_reg_sol_k(xdata, ydata, k)
+        sol = lin_reg_sol_k(xdata, ydata, k, basis_func)
         print('w =', sol[0])
         print('y_hat = ', sol[1])
         print('mse = ', sol[2])
@@ -51,11 +52,11 @@ def fit_lin_reg(xdata, ydata, k_values, ) :
 
 
 # Runs r reps of model fitting for k degrees of model, on N samples, returns the average MSE across runs
-def r_sims(N, r, k_values) :
+def r_sims(N, r, k_values, basis_func=poly_basis) :
     results=[]
     for i in range(r):
         xdata, ydata = gen_data(N)
-        lm = fit_lin_reg(xdata, ydata, k_values)
+        lm = fit_lin_reg(xdata, ydata, k_values, basis_func)
         mse = []
         for j in lm:
             mse.append(j[3])
@@ -94,7 +95,10 @@ def gen_data(N) :
 
 # Plotting Functions
 # Plots data points and fitted regression curves. Has the option to also plot the true function
-def plot_models(xdata, ydata, results, xmin, xmax, ymin, ymax, colormap='tab10' , truFunc = None) :
+def plot_models(xdata, ydata, results, xmin, xmax, ymin, ymax, colormap='tab10' , truFunc = None, basis_func=poly_basis, basis_name=None) :
+    if basis_name is None:
+        basis_name = basis_func.__name__.replace('_basis','').capitalize()
+
     x_points = np.linspace(xmin, xmax, 100)
     fig, ax = plt.subplots()
 
@@ -104,7 +108,7 @@ def plot_models(xdata, ydata, results, xmin, xmax, ymin, ymax, colormap='tab10' 
     colours = cmap(np.linspace(0.38, 1, len(results)))
 
     for (k, w, _, _), colour in zip(results, colours):
-        theta_points = poly_basis(x_points, k)
+        theta_points = basis_func(x_points, k)
         y_points = theta_points @ w
         ax.plot(x_points, y_points, color=colour, label=f'k = {k}', linewidth=0.8)
 
@@ -128,13 +132,16 @@ def plot_models(xdata, ydata, results, xmin, xmax, ymin, ymax, colormap='tab10' 
     ax.grid(True, linestyle=':', linewidth=0.5)
     ax.set_xlabel('x')
     ax.set_ylabel('y')
-    ax.set_title('Polynomial basis model of degree k')
+    ax.set_title(f'{basis_name} basis model of degree k')
     ax.legend()
     return fig, ax
 
 
 # Plots ln(MSE) vs model degree k for sample size N and reps r
-def plot_mse(k, mse, N, r) :
+def plot_mse(k, mse, N, r, basis_func=poly_basis, basis_name=None) :
+    if basis_name is None:
+        basis_name = basis_func.__name__.replace('_basis','').capitalize()
+
     fig, ax = plt.subplots()
 
     ax.plot(k, mse, color='black', linewidth=0.8)
@@ -153,7 +160,7 @@ def plot_mse(k, mse, N, r) :
     ax.grid(True, linestyle=':', linewidth=0.5)
     ax.set_xlabel('k')
     ax.set_ylabel('ln(mse)')
-    ax.set_title(f'Natural log of the training error vs the polynomial dimensions k, N={N}, r={r}')
+    ax.set_title(f'Natural log of the training error vs the {basis_name.lower()} dimensions k, N={N}, r={r}')
     return fig, ax
 
 
@@ -213,38 +220,35 @@ lm = fit_lin_reg(xdata, ydata, k_values)
 fig, ax = plot_models(xdata, ydata, lm, 0, 1, -0.5, 1.6, truFunc = g)
 
 
-print('Q2.b')
+print('Q2.b-d')
+def experiment_Q2_b_d (smallN, largeN, r, k_values, basis_func=poly_basis):
+    print('(b) Single run, N =', smallN)
+    xdata, ydata = gen_data(smallN)
+    lm = fit_lin_reg(xdata, ydata, k_values, basis_func)
+    df = pd.DataFrame(lm, columns=['k', 'w', 'y_hat', 'mse'])
+    fig, ax = plot_mse(df['k'], np.log(df['mse']), smallN, 1, basis_func=basis_func)
+
+    print('(c) Single run, N =', largeN)
+    xdata, ydata = gen_data(largeN)
+    lm = fit_lin_reg(xdata, ydata, k_values, basis_func)
+    df = pd.DataFrame(lm, columns=['k', 'w', 'y_hat', 'mse'])
+    fig, ax = plot_mse(df['k'], np.log(df['mse']), largeN, 1, basis_func=basis_func)
+
+    print('(d) Average results over r runs')
+    df = r_sims(smallN, r, k_values, basis_func)
+    fig, ax = plot_mse(df['k'], np.log(df['avg_mse']), smallN, r, basis_func=basis_func)
+    df = r_sims(largeN, r, k_values, basis_func)
+    fig, ax = plot_mse(df['k'], np.log(df['avg_mse']), largeN, r, basis_func=basis_func)
+
+    return
+
 k_values = [i for i in range(1,19)]
-lm = fit_lin_reg(xdata, ydata, k_values)
-df = pd.DataFrame(lm, columns=['k', 'w', 'y_hat', 'mse'])
-fig, ax = plot_mse(df['k'], np.log(df['mse']), 30, 1)
-
-
-print('Q2.c')
-N= 1000
-xdata, ydata = gen_data(N)
-k_values = [i for i in range(1, 19)]
-lm = fit_lin_reg(xdata, ydata, k_values)
-
-df = pd.DataFrame(lm, columns=['k', 'w', 'y_hat', 'mse'])
-
-fig, ax = plot_mse(df['k'], np.log(df['mse']), N, 1)
-
-
-print('Q2.d')
-k_values = [i for i in range(1, 19)]
-df = r_sims(30, 100, k_values)
-fig, ax = plot_mse(df['k'], np.log(df['avg_mse']), 30, 100)
-
-df = r_sims(1000, 100, k_values)
-fig, ax = plot_mse(df['k'], np.log(df['avg_mse']), 1000, 100)
+experiment_Q2_b_d(30, 1000, 100, k_values)
 
 
 print('Q3')
-def experiment_Q2_b_d ():
-    k_values = [i for i in range(1, 19)]
-    return
-
+k_values = [i for i in range(1, 19)]
+experiment_Q2_b_d(30, 1000, 100, k_values, basis_func=sin_basis)
 plt.show()
 plt.close('all')
 
