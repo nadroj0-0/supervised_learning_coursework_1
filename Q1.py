@@ -2,21 +2,30 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import matplotlib.cm as cm
-
-xdata = np.array([1, 2, 3, 4])
-ydata = np.array([3, 2, 0, 5])
-print(f'X = {xdata}')
-print(f'y = {ydata}')
+import random
+from scipy.stats import norm
+import pandas as pd
 
 
+# Basis Functions
+# Return polynomial basis matrix with powers 0 to k-1
 def poly_basis (x,k) :
     return np.column_stack([np.asarray(x) ** i for i in range(k)])
 
+# Return sin basis matrix, sin(iπx), for i from 1 to k
+def sin_basis (x,k) :
+    return np.column_stack([np.sin((i+1)*np.pi*np.asarray(x)) for i in range(k)])
+
+
+# Linear Regression Functions
+# Solves least squares equation, y = θw, returns weights w
 def lin_reg_sol (theta, y) :
     # return np.linalg.inv(theta.T@theta)@theta.T@y
     w, *_ = np.linalg.lstsq(theta, y, rcond=None)
     return w
 
+
+# Fits a single polynomial model degree k and returns weights, predictions and MSE
 def lin_reg_sol_k(x,y,k) :
     theta = poly_basis(x,k)
     print('Theta = ')
@@ -26,6 +35,8 @@ def lin_reg_sol_k(x,y,k) :
     mse = np.mean((y - y_hat)**2)
     return [w, y_hat, mse]
 
+
+# Fits multiple polynomial models of degree k for a defined set of k values, returns weights, predictions and MSE for each model
 def fit_lin_reg(xdata, ydata, k_values, ) :
     results = []
     for k in k_values:
@@ -38,6 +49,51 @@ def fit_lin_reg(xdata, ydata, k_values, ) :
         results.append((k, sol[0], sol[1], sol[2]))
     return results
 
+
+# Runs r reps of model fitting for k degrees of model, on N samples, returns the average MSE across runs
+def r_sims(N, r, k_values) :
+    results=[]
+    for i in range(r):
+        xdata, ydata = gen_data(N)
+        lm = fit_lin_reg(xdata, ydata, k_values)
+        mse = []
+        for j in lm:
+            mse.append(j[3])
+
+        results.append(mse)
+    avgmse = [0] * len(k_values)
+
+    for i in range(len(k_values)):
+        total = 0
+        for j in range(r) :
+            total += results[j][i]
+        avgmse[i] = total/r
+
+    df = pd.DataFrame({'k' : k_values, 'avg_mse' : avgmse})
+    return df
+
+
+# Data Generation Functions
+# True underlying function g(x) = sin²(2πx)
+def g(x) :
+    return np.sin(2 * np.pi *x) ** 2
+
+
+# Generates N samples from g(x) with Guassian noise variance σ = 0.07
+def gen_data(N) :
+    ydata = []
+    xdata = []
+    for i in range(N) :
+        rand = random.uniform(0,1)
+        xdata.append(rand)
+        rande = random.uniform(0,1)
+        epsilon = norm.ppf(rande, loc=0, scale=0.07)
+        ydata.append(g(rand) + epsilon)
+    return xdata, ydata
+
+
+# Plotting Functions
+# Plots data points and fitted regression curves. Has the option to also plot the true function
 def plot_models(xdata, ydata, results, xmin, xmax, ymin, ymax, colormap='tab10' , truFunc = None) :
     x_points = np.linspace(xmin, xmax, 100)
     fig, ax = plt.subplots()
@@ -76,40 +132,52 @@ def plot_models(xdata, ydata, results, xmin, xmax, ymin, ymax, colormap='tab10' 
     ax.legend()
     return fig, ax
 
+
+# Plots ln(MSE) vs model degree k for sample size N and reps r
+def plot_mse(k, mse, N, r) :
+    fig, ax = plt.subplots()
+
+    ax.plot(k, mse, color='black', linewidth=0.8)
+
+    ax.spines['right'].set_color('none')
+    ax.spines['top'].set_color('none')
+
+    ax.xaxis.set_ticks_position('bottom')
+    ax.yaxis.set_ticks_position('left')
+    ax.tick_params(axis='both', direction='inout', length=4)
+
+    ax.xaxis.set_minor_locator(ticker.AutoMinorLocator(4))
+    ax.yaxis.set_minor_locator(ticker.AutoMinorLocator(4))
+    ax.tick_params(which='minor', length=2)
+
+    ax.grid(True, linestyle=':', linewidth=0.5)
+    ax.set_xlabel('k')
+    ax.set_ylabel('ln(mse)')
+    ax.set_title(f'Natural log of the training error vs the polynomial dimensions k, N={N}, r={r}')
+    return fig, ax
+
+
+
+# Main Questions
+xdata = np.array([1, 2, 3, 4])
+ydata = np.array([3, 2, 0, 5])
+print(f'X = {xdata}')
+print(f'y = {ydata}')
 print(' ')
-print('Q1.1')
 
+print('Q1')
 k_values = [1,2,3,4]
-
 lm = fit_lin_reg(xdata, ydata, k_values)
 fig, ax = plot_models(xdata, ydata, lm, 0, 5, -5, 8, colormap='Blues')
-
-
 print(' ')
 
 
 print('Q2')
-import random
-from scipy.stats import norm
-
-def g(x) :
-    return np.sin(2 * np.pi *x) ** 2
-
-def gen_data(N) :
-    ydata = []
-    xdata = []
-    for i in range(N) :
-        rand = random.uniform(0,1)
-        xdata.append(rand)
-        rande = random.uniform(0,1)
-        epsilon = norm.ppf(rande, loc=0, scale=0.07)
-        ydata.append(g(rand) + epsilon)
-    return xdata, ydata
-
 xdata, ydata = gen_data(30)
 print(f'x = {xdata}')
 print(f'y = {ydata}')
 
+print('Q2.a.i')
 x_points = np.linspace(0,1,100)
 fig, ax = plt.subplots()
 
@@ -138,37 +206,16 @@ ax.set_ylabel('y')
 ax.set_title(' ')
 ax.legend()
 
+
+print('Q2.a.ii')
 k_values = [2,5,10,14,18]
 lm = fit_lin_reg(xdata, ydata, k_values)
 fig, ax = plot_models(xdata, ydata, lm, 0, 1, -0.5, 1.6, truFunc = g)
 
 
 print('Q2.b')
-import pandas as pd
-
-def plot_mse(k, mse, N, r) :
-    fig, ax = plt.subplots()
-
-    ax.plot(k, mse, color='black', linewidth=0.8)
-
-    ax.spines['right'].set_color('none')
-    ax.spines['top'].set_color('none')
-
-    ax.xaxis.set_ticks_position('bottom')
-    ax.yaxis.set_ticks_position('left')
-    ax.tick_params(axis='both', direction='inout', length=4)
-
-    ax.xaxis.set_minor_locator(ticker.AutoMinorLocator(4))
-    ax.yaxis.set_minor_locator(ticker.AutoMinorLocator(4))
-    ax.tick_params(which='minor', length=2)
-
-    ax.grid(True, linestyle=':', linewidth=0.5)
-    ax.set_xlabel('k')
-    ax.set_ylabel('ln(mse)')
-    ax.set_title(f'Natural log of the training error vs the polynomial dimensions k, N={N}, r={r}')
-    return fig, ax
-
-
+k_values = [i for i in range(1,19)]
+lm = fit_lin_reg(xdata, ydata, k_values)
 df = pd.DataFrame(lm, columns=['k', 'w', 'y_hat', 'mse'])
 fig, ax = plot_mse(df['k'], np.log(df['mse']), 30, 1)
 
@@ -185,33 +232,18 @@ fig, ax = plot_mse(df['k'], np.log(df['mse']), N, 1)
 
 
 print('Q2.d')
-def r_sims(N, r, k_values) :
-    results=[]
-    for i in range(r):
-        xdata, ydata = gen_data(N)
-        lm = fit_lin_reg(xdata, ydata, k_values)
-        mse = []
-        for j in lm:
-            mse.append(j[3])
-
-        results.append(mse)
-    avgmse = [0] * len(k_values)
-
-    for i in range(len(k_values)):
-        total = 0
-        for j in range(r) :
-            total += results[j][i]
-        avgmse[i] = total/r
-
-    df = pd.DataFrame({'k' : k_values, 'avg_mse' : avgmse})
-    return df
-
 k_values = [i for i in range(1, 19)]
 df = r_sims(30, 100, k_values)
 fig, ax = plot_mse(df['k'], np.log(df['avg_mse']), 30, 100)
 
 df = r_sims(1000, 100, k_values)
 fig, ax = plot_mse(df['k'], np.log(df['avg_mse']), 1000, 100)
+
+
+print('Q3')
+def experiment_Q2_b_d ():
+    k_values = [i for i in range(1, 19)]
+    return
 
 plt.show()
 plt.close('all')
