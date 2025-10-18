@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea8b6040-d574-472c-ada6-eb69d1bf684c" name="Changes" comment="fetched csv">
-      <change afterPath="$PROJECT_DIR$/Part1_Q4.py" afterDir="false" />
+    <list default="true" id="ea8b6040-d574-472c-ada6-eb69d1bf684c" name="Changes" comment="new .py for q4">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Q1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Part1_Q1_3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Part1_Q4.py" beforeDir="false" afterPath="$PROJECT_DIR$/Part1_Q4.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +50,7 @@
   "keyToString": {
     "Python.Part1.executor": "Run",
     "Python.Part1_Q1_3.executor": "Run",
+    "Python.Part1_Q4.executor": "Run",
     "Python.Q1.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
@@ -155,7 +155,15 @@
       <option name="project" value="LOCAL" />
       <updated>1760824765835</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="new .py for q4">
+      <option name="closed" value="true" />
+      <created>1760827657822</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1760827657822</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -180,6 +188,7 @@
     <MESSAGE value="Rearranged layout and added a few comments, also corrected k_values in q2.b" />
     <MESSAGE value="Modularised q2b-d, did q3" />
     <MESSAGE value="fetched csv" />
-    <option name="LAST_COMMIT_MESSAGE" value="fetched csv" />
+    <MESSAGE value="new .py for q4" />
+    <option name="LAST_COMMIT_MESSAGE" value="new .py for q4" />
   </component>
 </project>
