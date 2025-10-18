@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea8b6040-d574-472c-ada6-eb69d1bf684c" name="Changes" comment="Q1.2 modularised">
+    <list default="true" id="ea8b6040-d574-472c-ada6-eb69d1bf684c" name="Changes" comment="Q2.b, Q2.c">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Q1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Q1.py" afterDir="false" />
     </list>
@@ -104,7 +104,15 @@
       <option name="project" value="LOCAL" />
       <updated>1760750480307</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Q2.b, Q2.c">
+      <option name="closed" value="true" />
+      <created>1760754072954</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1760754072954</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -123,6 +131,7 @@
     <MESSAGE value="Q1.1 graph added" />
     <MESSAGE value="Q1.2" />
     <MESSAGE value="Q1.2 modularised" />
-    <option name="LAST_COMMIT_MESSAGE" value="Q1.2 modularised" />
+    <MESSAGE value="Q2.b, Q2.c" />
+    <option name="LAST_COMMIT_MESSAGE" value="Q2.b, Q2.c" />
   </component>
 </project>
