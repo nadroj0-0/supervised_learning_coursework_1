@@ -10,7 +10,7 @@ print(f'y = {ydata}')
 
 
 def poly_basis (x,k) :
-    return np.column_stack([x ** i for i in range(k)])
+    return np.column_stack([np.asarray(x) ** i for i in range(k)])
 
 def lin_reg_sol (theta, y) :
     return np.linalg.inv(theta.T@theta)@theta.T@y
@@ -27,14 +27,16 @@ def lin_reg_sol_k(x,y,k) :
 print(' ')
 print('Q1.1')
 w_list=[]
-for i in range (4) :
-    print('for k=',i+1)
-    sol = lin_reg_sol_k(xdata,ydata,i+1)
-    w_list.append(sol[0])
-    print('w =',sol[0])
-    print('y_hat = ',sol[1])
-    print('mse = ',sol[2])
-    print(' ')
+k_values = [1,2,3,4]
+
+for k in k_values :
+   print('for k=',k)
+   sol = lin_reg_sol_k(xdata,ydata,k)
+   w_list.append(sol[0])
+   print('w =',sol[0])
+   print('y_hat = ',sol[1])
+   print('mse = ',sol[2])
+   print(' ')
 
 print(' ')
 
@@ -45,10 +47,10 @@ ax.scatter(xdata, ydata, color='black', label='data', s=10)
 
 colours = cm.Blues(np.linspace(0.38, 1, len(w_list)))
 
-for i, (w, colour) in enumerate(zip(w_list, colours)) :
-    theta_points = poly_basis(x_points,i+1)
+for k, w, colour in zip(k_values, w_list, colours) :
+    theta_points = poly_basis(x_points,k)
     y_points = theta_points @ w
-    ax.plot(x_points,y_points, color = colour,label=f'k = {i+1}', linewidth=0.8)
+    ax.plot(x_points,y_points, color = colour,label=f'k = {k}', linewidth=0.8)
 
 ax.set_ylim(-5, 8)
 
@@ -72,8 +74,103 @@ ax.set_title('Polynomial basis model of degree k')
 ax.legend()
 
 plt.show()
+plt.close('all')
 
 print('Q1.2')
+import random
+from scipy.stats import norm
+
+def g(x) :
+    return np.sin(2 * np.pi *x) ** 2
+
+ydata = []
+xdata = []
+for i in range(30) :
+    rand = random.uniform(0,1)
+    xdata.append(rand)
+    rande = random.uniform(0,1)
+    epsilon = norm.ppf(rande, loc=0, scale=0.07)
+    ydata.append(g(rand) + epsilon)
+
+print(f'x = {xdata}')
+print(f'y = {ydata}')
+
+x_points = np.linspace(0,1,100)
+fig, ax = plt.subplots()
+
+ax.scatter(xdata, ydata, color='black', label='data', s=10)
+
+ax.plot(x_points,g(x_points), color = 'black' ,label='Sin^2(2pix)', linewidth=0.8)
+
+ax.set_ylim(-0.1, 1.1)
+
+ax.spines['left'].set_position('zero')
+ax.spines['bottom'].set_position('zero')
+ax.spines['right'].set_color('none')
+ax.spines['top'].set_color('none')
+
+ax.xaxis.set_ticks_position('bottom')
+ax.yaxis.set_ticks_position('left')
+ax.tick_params(axis='both', direction='inout', length=4)
+
+ax.xaxis.set_minor_locator(ticker.AutoMinorLocator(4))
+ax.yaxis.set_minor_locator(ticker.AutoMinorLocator(4))
+ax.tick_params(which='minor', length=2)
+
+ax.grid(True, linestyle=':', linewidth=0.5)
+ax.set_xlabel('x')
+ax.set_ylabel('y')
+ax.set_title(' ')
+ax.legend()
+
+plt.show()
+plt.close('all')
 
 
+w_list = []
+k_values = [2,5,10,14,18]
 
+for k in k_values :
+    print('for k=',k)
+    sol = lin_reg_sol_k(xdata,ydata,k)
+    w_list.append(sol[0])
+    print('w =',sol[0])
+    print('y_hat = ',sol[1])
+    print('mse = ',sol[2])
+    print(' ')
+
+x_points = np.linspace(0,1,100)
+fig, ax = plt.subplots()
+
+ax.scatter(xdata, ydata, color='black', label='data', s=10)
+
+colours = cm.tab10(np.linspace(0.38, 1, len(w_list)))
+
+for k ,w, colour in zip(k_values, w_list, colours) :
+    theta_points = poly_basis(x_points,k)
+    y_points = theta_points @ w
+    ax.plot(x_points,y_points, color = colour,label=f'k = {k}', linewidth=0.8)
+
+ax.set_ylim(-0.1, 1.1)
+
+ax.spines['left'].set_position('zero')
+ax.spines['bottom'].set_position('zero')
+ax.spines['right'].set_color('none')
+ax.spines['top'].set_color('none')
+
+ax.xaxis.set_ticks_position('bottom')
+ax.yaxis.set_ticks_position('left')
+ax.tick_params(axis='both', direction='inout', length=4)
+
+ax.xaxis.set_minor_locator(ticker.AutoMinorLocator(4))
+ax.yaxis.set_minor_locator(ticker.AutoMinorLocator(4))
+ax.tick_params(which='minor', length=2)
+
+ax.grid(True, linestyle=':', linewidth=0.5)
+ax.set_xlabel('x')
+ax.set_ylabel('y')
+ax.set_title('Polynomial basis model of degree k')
+ax.legend()
+
+plt.show()
+plt.close('all')
