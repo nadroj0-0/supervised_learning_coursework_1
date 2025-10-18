@@ -252,3 +252,7 @@ experiment_Q2_b_d(30, 1000, 100, k_values, basis_func=sin_basis)
 plt.show()
 plt.close('all')
 
+print('Q4')
+url = "http://www0.cs.ucl.ac.uk/staff/M.Herbster/boston-filter/Boston-filtered.csv"
+df = pd.read_csv(url)
+print(df.head())

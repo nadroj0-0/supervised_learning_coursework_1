@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea8b6040-d574-472c-ada6-eb69d1bf684c" name="Changes" comment="Rearranged layout and added a few comments, also corrected k_values in q2.b">
+    <list default="true" id="ea8b6040-d574-472c-ada6-eb69d1bf684c" name="Changes" comment="Modularised q2b-d, did q3">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Q1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Q1.py" afterDir="false" />
     </list>
@@ -136,7 +136,15 @@
       <option name="project" value="LOCAL" />
       <updated>1760817006203</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Modularised q2b-d, did q3">
+      <option name="closed" value="true" />
+      <created>1760821915291</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1760821915292</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -159,6 +167,7 @@
     <MESSAGE value="Q2.d, changed lin_reg_sol to fix spikes in graph" />
     <MESSAGE value="Added true function option to plot_models func" />
     <MESSAGE value="Rearranged layout and added a few comments, also corrected k_values in q2.b" />
-    <option name="LAST_COMMIT_MESSAGE" value="Rearranged layout and added a few comments, also corrected k_values in q2.b" />
+    <MESSAGE value="Modularised q2b-d, did q3" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modularised q2b-d, did q3" />
   </component>
 </project>
