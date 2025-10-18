@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea8b6040-d574-472c-ada6-eb69d1bf684c" name="Changes" comment="new .py for q4">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="ea8b6040-d574-472c-ada6-eb69d1bf684c" name="Changes" comment="q4.a">
       <change beforePath="$PROJECT_DIR$/Part1_Q4.py" beforeDir="false" afterPath="$PROJECT_DIR$/Part1_Q4.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -163,7 +162,15 @@
       <option name="project" value="LOCAL" />
       <updated>1760827657822</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="q4.a">
+      <option name="closed" value="true" />
+      <created>1760830750145</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1760830750145</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -189,6 +196,7 @@
     <MESSAGE value="Modularised q2b-d, did q3" />
     <MESSAGE value="fetched csv" />
     <MESSAGE value="new .py for q4" />
-    <option name="LAST_COMMIT_MESSAGE" value="new .py for q4" />
+    <MESSAGE value="q4.a" />
+    <option name="LAST_COMMIT_MESSAGE" value="q4.a" />
   </component>
 </project>
