@@ -22,6 +22,18 @@ def train_test_split (df, i=0) :
 def ones_basis (x) :
     return np.ones((len(x), 1))
 
+def single_attr_basis (x, att_col) :
+    ones = np.ones((len(x), 1))
+    att = np.asarray(x.iloc[:, att_col])
+    att = att.reshape(-1, 1)
+    return np.column_stack((ones, att))
+
+def all_attr_basis (x) :
+    noAtt = x.shape[1]
+    theta = np.ones((len(x), 1))
+    for i in range (noAtt) :
+        theta = np.column_stack((theta, single_attr_basis(x,i)[:, 1:]))
+    return theta
 
 # Linear Regression Functions
 # Solves least squares equation, y = θw, returns weights w
@@ -76,7 +88,9 @@ print(df.head())
 
 print('Q4.a')
 avgmse_df, w = r_sims(df, 20)
+print('Naive Regression')
 print(f"avg mse train {avgmse_df['avg_mse_train'][0]}, avg mse test {avgmse_df['avg_mse_test'][0]}, weight vector {w}")
 
 
 print('Q4.b')
+print('Linear Regression with single attribute')
