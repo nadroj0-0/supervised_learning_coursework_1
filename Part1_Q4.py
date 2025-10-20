@@ -107,3 +107,35 @@ print('Linear Regression with all attributes')
 avgmse_df, w = r_sims(df, runs, basis_func=all_attr_basis)
 print(f"avg mse train {avgmse_df['avg_mse_train'][0]}, avg mse test {avgmse_df['avg_mse_test'][0]}, weight vector {w}")
 print(' ')
+
+
+print('Q5')
+def norm_p(x, p) :
+    if p > 0 :
+        x=np.asarray(x)
+        return np.sum(np.abs(x)**p)**(1/p)
+    else:
+        return 'Norm not defined : p <= 0'
+
+def guass_kern (x1, x2, sig) :
+    diff = np.array(x1) - np.array(x2)
+    num = norm_p(diff, 2)**2
+    Kij = np.exp(-num/(2*(sig**2)))
+    return Kij
+
+def full_kern (x1, kernel_basis, x2=None, **kwargs) :
+    x1 = np.asarray(x1)
+    n1 =len(x1)
+    if x2 is None :
+        x2 = x1
+        n2 = n1
+    else:
+        x2 = np.asarray(x2)
+        n2 = len(x2)
+    K = np.zeros((n1,n2))
+    for i in range(n1) :
+        for j in range(n2) :
+            K[i,j] = kernel_basis(x1[i], x2[j], **kwargs)
+    return K
+
+k = full_kern(xtrain, kernel_basis=guass_kern, sig=)
