@@ -125,7 +125,7 @@ def guass_kern (x1, x2, sig) :
     Kij = np.exp(-num/(2*(sig**2)))
     return Kij
 
-def full_kern (x1, kernel_basis, x2=None, **kwargs) :
+def full_kern (x1, kernel_func, x2=None, **kwargs) :
     x1 = np.asarray(x1)
     n1 =len(x1)
     if x2 is None :
@@ -137,7 +137,57 @@ def full_kern (x1, kernel_basis, x2=None, **kwargs) :
     K = np.zeros((n1,n2))
     for i in range(n1) :
         for j in range(n2) :
-            K[i,j] = kernel_basis(x1[i], x2[j], **kwargs)
+            K[i,j] = kernel_func(x1[i], x2[j], **kwargs)
     return K
 
-k = full_kern(xtrain, kernel_basis=guass_kern, sig=)
+print('Q5.a')
+gamma = [2**(-i) for i in range(40, 25, -1)]
+sigma = [2**(7+(0.5*i)) for i in range(13)]
+
+
+# Solves least squares equation, y = θw, returns weights w
+def ker_ridg_sol (K, gamma, y) :
+    l = len(y)
+    # return np.linalg.inv(theta.T@theta)@theta.T@y
+    alpha = np.linalg.solve((K+(gamma*l*np.identity(l))), y)
+    return alpha
+
+def ker_reg_sol(x,y, kernel_func, **kwargs) :
+    # theta = poly_basis(x,k)
+    K = full_kern(x, kernel_func=kernel_func, sig=kwargs['sig'])
+    # K = kernel_func(x, **kwargs)
+    # print('Theta = ')
+    # print(theta)
+    alpha = ker_ridg_sol(K, kwargs['gam'], y)
+    y_hat = K @ alpha
+    mse = np.mean((y - y_hat)**2)
+    return [alpha, y_hat, mse]
+
+# Runs r reps of model fitting, each with different train/test splits, returns the average MSE across runs (train and test)
+def r_sims_ker_reg_sol(df, r, kernel_func, **kwargs) :
+    results=[]
+    for i in range(r):
+        xtrain, xtest, ytrain, ytest = train_test_split(df, i)
+        krm = ker_reg_sol(xtrain, ytrain, kernel_func, **kwargs)
+        mse_train = krm[2]
+        alpha = krm[0]
+        K_test = full_kern(xtest, kernel_func=kernel_func, x2=xtrain, sig=kwargs['sig'])
+        y_hat_test = K_test @ alpha
+        mse_test = np.mean((ytest - y_hat_test) ** 2)
+        mse = [mse_train, mse_test]
+        results.append(mse)
+    avgmse = [0,0]
+
+    for i in range(2):
+        total = 0
+        for j in range(r):
+            total += results[j][i]
+        avgmse[i] = total / r
+
+    avgmse_df = pd.DataFrame({'avg_mse_train': [avgmse[0]], 'avg_mse_test': [avgmse[1]]})
+    return avgmse_df, alpha
+
+# k = full_kern(xtrain, kernel_func=guass_kern, sig=)
+# print(r_sims_ker_reg_sol(df, 1, kernel_func=guass_kern, sig=sigma[0], gam=gamma[0]))
+avgmse_df, alpha = r_sims_ker_reg_sol(df, 1, kernel_func=guass_kern, sig=2**13, gam=2**-26)
+print(np.mean(np.abs(alpha)))

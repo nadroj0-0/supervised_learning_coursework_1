@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea8b6040-d574-472c-ada6-eb69d1bf684c" name="Changes" comment="rename Q1_3 to Q1-3" />
+    <list default="true" id="ea8b6040-d574-472c-ada6-eb69d1bf684c" name="Changes" comment="testing branching acc works">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Part1_Q4.py" beforeDir="false" afterPath="$PROJECT_DIR$/Part1_Q4.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -59,6 +62,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Python.Part1.executor": "Run",
+    "Python.Part1_Q1-3.executor": "Run",
     "Python.Part1_Q1_3.executor": "Run",
     "Python.Part1_Q4.executor": "Run",
     "Python.Q1.executor": "Run",
@@ -213,7 +217,15 @@
       <option name="project" value="LOCAL" />
       <updated>1760958786519</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="testing branching acc works">
+      <option name="closed" value="true" />
+      <created>1760979618572</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1760979618572</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -256,6 +268,7 @@
     <MESSAGE value="single atrr basis function and all attr basis function" />
     <MESSAGE value="Q4b-c, added **kwargs to account for single attr function taking 2 parameters instead of just 1" />
     <MESSAGE value="rename Q1_3 to Q1-3" />
-    <option name="LAST_COMMIT_MESSAGE" value="rename Q1_3 to Q1-3" />
+    <MESSAGE value="testing branching acc works" />
+    <option name="LAST_COMMIT_MESSAGE" value="testing branching acc works" />
   </component>
 </project>
