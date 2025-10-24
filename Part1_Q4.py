@@ -72,6 +72,7 @@ def r_sims(df, r, basis_func=ones_basis, **kwargs) :
         mse = [mse_train, mse_test]
         results.append(mse)
     avgmse = [0,0]
+    avgmse_sd = [0,0]
 
     for i in range(2):
         total = 0
@@ -79,7 +80,17 @@ def r_sims(df, r, basis_func=ones_basis, **kwargs) :
             total += results[j][i]
         avgmse[i] = total / r
 
-    avgmse_df = pd.DataFrame({'avg_mse_train': [avgmse[0]], 'avg_mse_test': [avgmse[1]]})
+    if r > 1 :
+        for i in range(2):
+            total = 0
+            for j in range(r):
+                total += (results[j][i]-avgmse[i])**2
+            avgmse_sd[i] = total / (r-1)
+            avgmse_sd[i] = avgmse_sd[i]**(1/2)
+    else :
+        avgmse_sd = [None,None]
+
+    avgmse_df = pd.DataFrame({'avg_mse_train': [avgmse[0]], 'avg_mse_test': [avgmse[1]], 'avg_mse_train_sd': [avgmse_sd[0]], 'avg_mse_test_sd': [avgmse_sd[1]]})
     return avgmse_df, w
 
 # Plots
@@ -309,13 +320,26 @@ def r_sims_ker_reg_sol(df, r, kernel_func, sig, gam, plot=False, **kwargs) :
         mse = [mse_train, mse_test]
         results.append(mse)
     avgmse = [0,0]
+    avgmse_sd = [0,0]
 
     for i in range(2):
         total = 0
         for j in range(r):
             total += results[j][i]
         avgmse[i] = total / r
-    avgmse_df = pd.DataFrame({'avg_mse_train': [avgmse[0]], 'avg_mse_test': [avgmse[1]]})
+
+    if r > 1 :
+        for i in range(2):
+            total = 0
+            for j in range(r):
+                total += (results[j][i]-avgmse[i])**2
+            avgmse_sd[i] = total / (r-1)
+            avgmse_sd[i] = avgmse_sd[i]**(1/2)
+    else :
+        avgmse_sd = [None,None]
+
+
+    avgmse_df = pd.DataFrame({'avg_mse_train': [avgmse[0]], 'avg_mse_test': [avgmse[1]], 'avg_mse_train_sd': [avgmse_sd[0]], 'avg_mse_test_sd': [avgmse_sd[1]]})
 
     if plot == True and r>0:
         fig, ax = plot_crossVal_mse(crossValdf)
@@ -345,7 +369,7 @@ avgmse_df, w = r_sims(df, runs)
 print('Naive Regression')
 print(f"avg mse train {avgmse_df['avg_mse_train'][0]}, avg mse test {avgmse_df['avg_mse_test'][0]}, weight vector {w}")
 print(' ')
-mse_table.loc[len(mse_table)] = {'Method' : 'Naive Regression', 'MSE train' : avgmse_df['avg_mse_train'][0], 'MSE test' : avgmse_df['avg_mse_test'][0]}
+mse_table.loc[len(mse_table)] = {'Method' : 'Naive Regression', 'MSE train' : f"{avgmse_df['avg_mse_train'][0]}±{avgmse_df['avg_mse_train_sd'][0]}", 'MSE test' : f"{avgmse_df['avg_mse_test'][0]}±{avgmse_df['avg_mse_test_sd'][0]}"}
 
  # 4.c
 runs = 20
@@ -354,7 +378,7 @@ for i in range(df.shape[1]-1):
     print(f'Linear Regression with single attribute {i} : {df.columns[i]}')
     print(f"avg mse train {avgmse_df['avg_mse_train'][0]}, avg mse test {avgmse_df['avg_mse_test'][0]}, weight vector {w}")
     print(' ')
-    mse_table.loc[len(mse_table)] = {'Method': f'Linear Regression (attribute {i})', 'MSE train': avgmse_df['avg_mse_train'][0], 'MSE test': avgmse_df['avg_mse_test'][0]}
+    mse_table.loc[len(mse_table)] = {'Method': f'Linear Regression (attribute {i})', 'MSE train': f"{avgmse_df['avg_mse_train'][0]}±{avgmse_df['avg_mse_train_sd'][0]}", 'MSE test': f"{avgmse_df['avg_mse_test'][0]}±{avgmse_df['avg_mse_test_sd'][0]}"}
 
 # 4.d
 runs = 20
@@ -362,7 +386,7 @@ print('Linear Regression with all attributes')
 avgmse_df, w = r_sims(df, runs, basis_func=all_attr_basis)
 print(f"avg mse train {avgmse_df['avg_mse_train'][0]}, avg mse test {avgmse_df['avg_mse_test'][0]}, weight vector {w}")
 print(' ')
-mse_table.loc[len(mse_table)] = {'Method': 'Linear Regression (all attributes)', 'MSE train': avgmse_df['avg_mse_train'][0], 'MSE test': avgmse_df['avg_mse_test'][0]}
+mse_table.loc[len(mse_table)] = {'Method': 'Linear Regression (all attributes)', 'MSE train': f"{avgmse_df['avg_mse_train'][0]}±{avgmse_df['avg_mse_train_sd'][0]}", 'MSE test': f"{avgmse_df['avg_mse_test'][0]}±{avgmse_df['avg_mse_test_sd'][0]}"}
 
 
 # 5.a,c
@@ -372,7 +396,7 @@ sigma = [2**(7+(0.5*i)) for i in range(13)]
 
 avgmse_df, alpha = r_sims_ker_reg_sol(df, runs, kernel_func=guass_kern, sig=sigma, gam=gamma)
 print(avgmse_df)
-mse_table.loc[len(mse_table)] = {'Method': 'Kernel Ridge Regression', 'MSE train': avgmse_df['avg_mse_train'][0], 'MSE test': avgmse_df['avg_mse_test'][0]}
+mse_table.loc[len(mse_table)] = {'Method': 'Kernel Ridge Regression', 'MSE train': f"{avgmse_df['avg_mse_train'][0]}±{avgmse_df['avg_mse_train_sd'][0]}", 'MSE test': f"{avgmse_df['avg_mse_test'][0]}±{avgmse_df['avg_mse_test_sd'][0]}"}
 
 print (mse_table)
 plt.show()
