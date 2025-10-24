@@ -120,7 +120,7 @@ print('Naive Regression')
 print(f"avg mse train {avgmse_df['avg_mse_train'][0]}, avg mse test {avgmse_df['avg_mse_test'][0]}, weight vector {w}")
 print(' ')
 
-print('Q4.b')
+print('Q4.c')
 runs = 20
 for i in range(df.shape[1]-1):
     avgmse_df, w = r_sims(df, runs, basis_func=single_attr_basis, att_col=i)
@@ -128,7 +128,7 @@ for i in range(df.shape[1]-1):
     print(f"avg mse train {avgmse_df['avg_mse_train'][0]}, avg mse test {avgmse_df['avg_mse_test'][0]}, weight vector {w}")
     print(' ')
 
-print('Q4.c')
+print('Q4.d')
 runs = 20
 print('Linear Regression with all attributes')
 avgmse_df, w = r_sims(df, runs, basis_func=all_attr_basis)
@@ -335,10 +335,50 @@ print(avgmse_df)
 print('Q5.b')
 avgmse_df, alpha, fig, ax = r_sims_ker_reg_sol(df, 1, kernel_func=guass_kern, sig=sigma, gam=gamma, plot=True)
 print(avgmse_df)
+
+print('Q5.d')
+mse_table = pd.DataFrame(columns=['Method', 'MSE train', 'MSE test'])
+
+# 4.a
+runs = 20
+avgmse_df, w = r_sims(df, runs)
+print('Naive Regression')
+print(f"avg mse train {avgmse_df['avg_mse_train'][0]}, avg mse test {avgmse_df['avg_mse_test'][0]}, weight vector {w}")
+print(' ')
+mse_table.loc[len(mse_table)] = {'Method' : 'Naive Regression', 'MSE train' : avgmse_df['avg_mse_train'][0], 'MSE test' : avgmse_df['avg_mse_test'][0]}
+
+ # 4.c
+runs = 20
+for i in range(df.shape[1]-1):
+    avgmse_df, w = r_sims(df, runs, basis_func=single_attr_basis, att_col=i)
+    print(f'Linear Regression with single attribute {i} : {df.columns[i]}')
+    print(f"avg mse train {avgmse_df['avg_mse_train'][0]}, avg mse test {avgmse_df['avg_mse_test'][0]}, weight vector {w}")
+    print(' ')
+    mse_table.loc[len(mse_table)] = {'Method': f'Linear Regression (attribute {i})', 'MSE train': avgmse_df['avg_mse_train'][0], 'MSE test': avgmse_df['avg_mse_test'][0]}
+
+# 4.d
+runs = 20
+print('Linear Regression with all attributes')
+avgmse_df, w = r_sims(df, runs, basis_func=all_attr_basis)
+print(f"avg mse train {avgmse_df['avg_mse_train'][0]}, avg mse test {avgmse_df['avg_mse_test'][0]}, weight vector {w}")
+print(' ')
+mse_table.loc[len(mse_table)] = {'Method': 'Linear Regression (all attributes)', 'MSE train': avgmse_df['avg_mse_train'][0], 'MSE test': avgmse_df['avg_mse_test'][0]}
+
+
+# 5.a,c
+runs = 20
+gamma = [2**(-i) for i in range(40, 25, -1)]
+sigma = [2**(7+(0.5*i)) for i in range(13)]
+
+avgmse_df, alpha = r_sims_ker_reg_sol(df, runs, kernel_func=guass_kern, sig=sigma, gam=gamma)
+print(avgmse_df)
+mse_table.loc[len(mse_table)] = {'Method': 'Kernel Ridge Regression', 'MSE train': avgmse_df['avg_mse_train'][0], 'MSE test': avgmse_df['avg_mse_test'][0]}
+
+print (mse_table)
 plt.show()
 plt.close()
 
-plt.show()
+
 
 
 

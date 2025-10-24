@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea8b6040-d574-472c-ada6-eb69d1bf684c" name="Changes" comment="Q4.b">
-      <change afterPath="$PROJECT_DIR$/Part 1.ipynb" afterDir="false" />
+    <list default="true" id="ea8b6040-d574-472c-ada6-eb69d1bf684c" name="Changes" comment="Jupiter Notebook created">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Part1_Q4.py" beforeDir="false" afterPath="$PROJECT_DIR$/Part1_Q4.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -272,7 +272,15 @@
       <option name="project" value="LOCAL" />
       <updated>1761062076790</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Jupiter Notebook created">
+      <option name="closed" value="true" />
+      <created>1761143813735</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1761143813735</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -318,6 +326,7 @@
     <MESSAGE value="testing branching acc works" />
     <MESSAGE value="Kernel ridge regression avgmse and alpha for r runs, currently only works for scalar sig and gam values" />
     <MESSAGE value="Q4.b" />
-    <option name="LAST_COMMIT_MESSAGE" value="Q4.b" />
+    <MESSAGE value="Jupiter Notebook created" />
+    <option name="LAST_COMMIT_MESSAGE" value="Jupiter Notebook created" />
   </component>
 </project>
