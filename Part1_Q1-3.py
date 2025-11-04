@@ -5,6 +5,29 @@ import matplotlib.cm as cm
 import random
 from scipy.stats import norm
 import pandas as pd
+import json
+import os
+
+# Saving results and figures functions
+#Saves a figure in Figures folder
+def save_figure(fig, filename: str):
+    path = os.path.join("Figures", filename)
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    fig.savefig(path, dpi=300, bbox_inches="tight")
+
+#Saves a json file in results folder
+def save_json(data: dict, filename: str):
+    path = os.path.join("results", filename)
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w") as f:
+        json.dump(data, f, indent=4)
+
+#Saves a latex file in the tex folder for writing up in latex
+def df_to_tex(df, filename: str):
+    path = os.path.join("tex", filename)
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    df.to_latex(path, index=False, float_format="%.4f")
+
 
 
 # Basis Functions
@@ -176,6 +199,18 @@ print('Q1')
 k_values = [1,2,3,4]
 lm = fit_lin_reg(xdata, ydata, k_values)
 fig, ax = plot_models(xdata, ydata, lm, 0, 5, -5, 8, colormap='Blues')
+save_figure(fig, 'Q1/poly_fits_k.png')
+modelResults = []
+for (k,w,y_hat,mse) in lm:
+    modelResults.append({ 'k': k, 'weights': w.tolist(), 'y_hat': y_hat.tolist(), 'mse': float(mse) })
+save_json({'basis': 'poly', 'x': xdata.tolist(), 'y': ydata.tolist(), 'models': modelResults}, 'Q1/results.json')
+
+with open("results/Q1/results.json") as f:
+    data = json.load(f)
+df = pd.DataFrame(data["models"])
+df["mse"] = df["mse"].astype(float)
+df_to_tex(df, "Q1/results.tex")
+
 print(' ')
 
 
@@ -212,42 +247,79 @@ ax.set_xlabel('x')
 ax.set_ylabel('y')
 ax.set_title(' ')
 ax.legend()
+save_figure(fig, 'Q2/sin_data_gen.png')
 
 
 print('Q2.a.ii')
 k_values = [2,5,10,14,18]
 lm = fit_lin_reg(xdata, ydata, k_values)
 fig, ax = plot_models(xdata, ydata, lm, 0, 1, -0.5, 1.6, truFunc = g)
+save_figure(fig, 'Q2/poly_basis_degree_k.png')
 
 
 print('Q2.b-d')
-def experiment_Q2_b_d (smallN, largeN, r, k_values, basis_func=poly_basis):
+def experiment_Q2_b_d (question, smallN, largeN, r, k_values, basis_func=poly_basis):
+    basis = basis_func.__name__.replace("_basis", "")
+    mse = []
     print('(b) Single run, N =', smallN)
     xdata, ydata = gen_data(smallN)
     lm = fit_lin_reg(xdata, ydata, k_values, basis_func)
     df = pd.DataFrame(lm, columns=['k', 'w', 'y_hat', 'mse'])
+    mse.append(df['mse'])
     fig, ax = plot_mse(df['k'], np.log(df['mse']), smallN, 1, basis_func=basis_func)
+    save_figure(fig, f'{question}/ln_train_error_vs_{basis}_N={smallN}_r=1.png')
 
     print('(c) Single run, N =', largeN)
     xdata, ydata = gen_data(largeN)
     lm = fit_lin_reg(xdata, ydata, k_values, basis_func)
     df = pd.DataFrame(lm, columns=['k', 'w', 'y_hat', 'mse'])
+    mse.append(df['mse'])
     fig, ax = plot_mse(df['k'], np.log(df['mse']), largeN, 1, basis_func=basis_func)
+    save_figure(fig, f'{question}/ln_train_error_vs_{basis}_N={largeN}_r=1.png')
 
     print('(d) Average results over r runs')
     df = r_sims(smallN, r, k_values, basis_func)
+    mse.append(df['avg_mse'])
     fig, ax = plot_mse(df['k'], np.log(df['avg_mse']), smallN, r, basis_func=basis_func)
+    save_figure(fig, f'{question}/ln_train_error_vs_{basis}_N={smallN}_r={r}.png')
     df = r_sims(largeN, r, k_values, basis_func)
+    mse.append(df['avg_mse'])
     fig, ax = plot_mse(df['k'], np.log(df['avg_mse']), largeN, r, basis_func=basis_func)
+    save_figure(fig, f'{question}/ln_train_error_vs_{basis}_N={largeN}_r={r}.png')
 
+    save_json({'basis': basis, 'smallN': smallN, 'largeN': largeN, 'r':r, 'k_values': k_values, '1_run_smallN_mse':mse[0].tolist(), '1_run_largeN_mse':mse[1].tolist(), 'avgruns_smallN_mse':mse[2].tolist(), 'avgruns_largeN_mse':mse[3].tolist()}, f'{question}/results_{basis}.json')
     return
 
 k_values = [i for i in range(1,19)]
-experiment_Q2_b_d(30, 1000, 100, k_values)
+experiment_Q2_b_d('Q2',30, 1000, 100, k_values)
+
+with open("results/Q2/results_poly.json") as f:
+    data = json.load(f)
+df2 = pd.DataFrame({
+    "k": data["k_values"],
+    "mse_smallN_1run": data["1_run_smallN_mse"],
+    "mse_largeN_1run": data["1_run_largeN_mse"],
+    "avg_smallN": data["avgruns_smallN_mse"],
+    "avg_largeN": data["avgruns_largeN_mse"]
+})
+
+df_to_tex(df2, "Q2/results_poly.tex")
 
 
 print('Q3')
 k_values = [i for i in range(1, 19)]
-experiment_Q2_b_d(30, 1000, 100, k_values, basis_func=sin_basis)
+experiment_Q2_b_d('Q3',30, 1000, 100, k_values, basis_func=sin_basis)
 plt.show()
 plt.close('all')
+
+with open("results/Q3/results_sin.json") as f:
+    data = json.load(f)
+df2 = pd.DataFrame({
+    "k": data["k_values"],
+    "mse_smallN_1run": data["1_run_smallN_mse"],
+    "mse_largeN_1run": data["1_run_largeN_mse"],
+    "avg_smallN": data["avgruns_smallN_mse"],
+    "avg_largeN": data["avgruns_largeN_mse"]
+})
+
+df_to_tex(df2, "Q3/results_sin.tex")
