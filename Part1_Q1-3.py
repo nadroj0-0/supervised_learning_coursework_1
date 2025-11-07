@@ -11,20 +11,20 @@ import os
 # Saving results and figures functions
 #Saves a figure in Figures folder
 def save_figure(fig, filename: str):
-    path = os.path.join("Figures", filename)
+    path = os.path.join("outputs", "figures", filename)
     os.makedirs(os.path.dirname(path), exist_ok=True)
     fig.savefig(path, dpi=300, bbox_inches="tight")
 
 #Saves a json file in results folder
 def save_json(data: dict, filename: str):
-    path = os.path.join("results", filename)
+    path = os.path.join("outputs", "results", filename)
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w") as f:
         json.dump(data, f, indent=4)
 
 #Saves a latex file in the tex folder for writing up in latex
 def df_to_tex(df, filename: str):
-    path = os.path.join("tex", filename)
+    path = os.path.join("outputs", "tex", filename)
     os.makedirs(os.path.dirname(path), exist_ok=True)
     df.to_latex(path, index=False, float_format="%.4f")
 
@@ -49,12 +49,13 @@ def lin_reg_sol (theta, y) :
 
 
 # Fits a single polynomial model degree k and returns weights, predictions and MSE
-def lin_reg_sol_k(x,y,k, basis_func=poly_basis) :
+def lin_reg_sol_k(x,y,k, basis_func=poly_basis, w=None) :
     # theta = poly_basis(x,k)
     theta = basis_func(x,k)
     print('Theta = ')
     print(theta)
-    w = lin_reg_sol(theta,y)
+    if w is None:
+        w = lin_reg_sol(theta,y)
     y_hat = theta @ w
     mse = np.mean((y - y_hat)**2)
     return [w, y_hat, mse]
@@ -75,16 +76,27 @@ def fit_lin_reg(xdata, ydata, k_values, basis_func=poly_basis) :
 
 
 # Runs r reps of model fitting for k degrees of model, on N samples, returns the average MSE across runs
-def r_sims(N, r, k_values, basis_func=poly_basis) :
+def r_sims(N, r, k_values, basis_func=poly_basis, wlist = None) :
     results=[]
+    results_weights=[]
     for i in range(r):
         xdata, ydata = gen_data(N)
-        lm = fit_lin_reg(xdata, ydata, k_values, basis_func)
-        mse = []
-        for j in lm:
-            mse.append(j[3])
+        if wlist is None:
+            lm = fit_lin_reg(xdata, ydata, k_values, basis_func)
+            mse = []
+            weights=[]
+            for j in lm:
+                mse.append(j[3])
+                weights.append(j[1])
+        else:
+            mse = []
+            weights = wlist[i]
+            for k, w in zip(k_values, weights) :
+                lmtest = lin_reg_sol_k(xdata, ydata, k, basis_func, w=w)
+                mse.append(lmtest[2])
 
         results.append(mse)
+        results_weights.append(weights)
     avgmse = [0] * len(k_values)
 
     for i in range(len(k_values)):
@@ -94,7 +106,7 @@ def r_sims(N, r, k_values, basis_func=poly_basis) :
         avgmse[i] = total/r
 
     df = pd.DataFrame({'k' : k_values, 'avg_mse' : avgmse})
-    return df
+    return df, results_weights
 
 
 # Data Generation Functions
@@ -161,7 +173,7 @@ def plot_models(xdata, ydata, results, xmin, xmax, ymin, ymax, colormap='tab10' 
 
 
 # Plots ln(MSE) vs model degree k for sample size N and reps r
-def plot_mse(k, mse, N, r, basis_func=poly_basis, basis_name=None) :
+def plot_mse(k, mse, N, r, basis_func=poly_basis, basis_name=None, datatype='training') :
     if basis_name is None:
         basis_name = basis_func.__name__.replace('_basis','').capitalize()
 
@@ -183,7 +195,7 @@ def plot_mse(k, mse, N, r, basis_func=poly_basis, basis_name=None) :
     ax.grid(True, linestyle=':', linewidth=0.5)
     ax.set_xlabel('k')
     ax.set_ylabel('ln(mse)')
-    ax.set_title(f'Natural log of the training error vs the {basis_name.lower()} dimensions k, N={N}, r={r}')
+    ax.set_title(f'Natural log of the {datatype} error vs the {basis_name.lower()} dimensions k, N={N}, r={r}')
     return fig, ax
 
 
@@ -205,11 +217,46 @@ for (k,w,y_hat,mse) in lm:
     modelResults.append({ 'k': k, 'weights': w.tolist(), 'y_hat': y_hat.tolist(), 'mse': float(mse) })
 save_json({'basis': 'poly', 'x': xdata.tolist(), 'y': ydata.tolist(), 'models': modelResults}, 'Q1/results.json')
 
-with open("results/Q1/results.json") as f:
+with open("outputs/results/Q1/results.json") as f:
     data = json.load(f)
-df = pd.DataFrame(data["models"])
-df["mse"] = df["mse"].astype(float)
+
+# --- build weight columns dynamically ---
+# find maximum weight vector length
+max_len = max(len(row["weights"]) for row in data["models"])
+
+# create column names w_0, w_1, ...
+weight_cols = [f"w_{i}" for i in range(max_len)]
+
+# build rows, padding shorter vectors
+rows = []
+for row in data["models"]:
+    padded = row["weights"] + [' '] * (max_len - len(row["weights"]))
+    rows.append([row["k"]] + padded + [row["mse"]])
+
+# construct DataFrame
+df = pd.DataFrame(rows, columns=["k"] + weight_cols + ["mse"])
+
+# OPTIONAL: nicer LaTeX headers
+df.rename(columns={f"w_{i}": f"$w_{i}$" for i in range(max_len)}, inplace=True)
+
+# convert weight columns, round, but preserve blanks
+for c in df.columns:
+    if "$w_" in c:
+        df[c] = (
+            pd.to_numeric(df[c], errors="coerce")   # convert numbers; blanks → NaN
+            .round(4)                               # round floats
+            .astype(object)                         # switch back to object so we can mix blanks
+        )
+        # replace NaN back with blank space
+        df[c] = df[c].where(df[c].notna(), ' ')
+
+# convert mse values to scientific notation if they are very small
+df["mse"] = df["mse"].apply(lambda v: f"${v:.6g}$")
+
+
+# export to LaTeX
 df_to_tex(df, "Q1/results.tex")
+
 
 print(' ')
 
@@ -269,23 +316,34 @@ def experiment_Q2_b_d (question, smallN, largeN, r, k_values, basis_func=poly_ba
     fig, ax = plot_mse(df['k'], np.log(df['mse']), smallN, 1, basis_func=basis_func)
     save_figure(fig, f'{question}/ln_train_error_vs_{basis}_N={smallN}_r=1.png')
 
-    print('(c) Single run, N =', largeN)
-    xdata, ydata = gen_data(largeN)
-    lm = fit_lin_reg(xdata, ydata, k_values, basis_func)
-    df = pd.DataFrame(lm, columns=['k', 'w', 'y_hat', 'mse'])
+    # print('(c) Single run, N =', largeN)
+    # xdata, ydata = gen_data(largeN)
+    # lm = fit_lin_reg(xdata, ydata, k_values, basis_func)
+    # df = pd.DataFrame(lm, columns=['k', 'w', 'y_hat', 'mse'])
+    # mse.append(df['mse'])
+    # fig, ax = plot_mse(df['k'], np.log(df['mse']), largeN, 1, basis_func=basis_func)
+    # save_figure(fig, f'{question}/ln_train_error_vs_{basis}_N={largeN}_r=1.png')
+
+    print('(c) Single run (test error), N =', largeN)
+    xtest, ytest = gen_data(largeN)
+    mse_test = []
+    for k, w, _, _ in lm:
+        lmtest = lin_reg_sol_k(xtest, ytest, k, basis_func, w=w)
+        mse_test.append(lmtest[2])
+    df = pd.DataFrame({'k': k_values, 'mse': mse_test})
     mse.append(df['mse'])
-    fig, ax = plot_mse(df['k'], np.log(df['mse']), largeN, 1, basis_func=basis_func)
-    save_figure(fig, f'{question}/ln_train_error_vs_{basis}_N={largeN}_r=1.png')
+    fig, ax = plot_mse(df['k'], np.log(df['mse']), largeN, 1, basis_func=basis_func, datatype = 'test')
+    save_figure(fig, f'{question}/ln_test_error_vs_{basis}_N={largeN}_r=1.png')
 
     print('(d) Average results over r runs')
-    df = r_sims(smallN, r, k_values, basis_func)
+    df, w = r_sims(smallN, r, k_values, basis_func)
     mse.append(df['avg_mse'])
     fig, ax = plot_mse(df['k'], np.log(df['avg_mse']), smallN, r, basis_func=basis_func)
     save_figure(fig, f'{question}/ln_train_error_vs_{basis}_N={smallN}_r={r}.png')
-    df = r_sims(largeN, r, k_values, basis_func)
+    df, _ = r_sims(largeN, r, k_values, basis_func, wlist=w)
     mse.append(df['avg_mse'])
-    fig, ax = plot_mse(df['k'], np.log(df['avg_mse']), largeN, r, basis_func=basis_func)
-    save_figure(fig, f'{question}/ln_train_error_vs_{basis}_N={largeN}_r={r}.png')
+    fig, ax = plot_mse(df['k'], np.log(df['avg_mse']), largeN, r, basis_func=basis_func, datatype = 'test')
+    save_figure(fig, f'{question}/ln_test_error_vs_{basis}_N={largeN}_r={r}.png')
 
     save_json({'basis': basis, 'smallN': smallN, 'largeN': largeN, 'r':r, 'k_values': k_values, '1_run_smallN_mse':mse[0].tolist(), '1_run_largeN_mse':mse[1].tolist(), 'avgruns_smallN_mse':mse[2].tolist(), 'avgruns_largeN_mse':mse[3].tolist()}, f'{question}/results_{basis}.json')
     return
@@ -293,17 +351,21 @@ def experiment_Q2_b_d (question, smallN, largeN, r, k_values, basis_func=poly_ba
 k_values = [i for i in range(1,19)]
 experiment_Q2_b_d('Q2',30, 1000, 100, k_values)
 
-with open("results/Q2/results_poly.json") as f:
+with open("outputs/results/Q2/results_poly.json") as f:
     data = json.load(f)
+smallN = data["smallN"]
+largeN = data["largeN"]
+r = data["r"]
 df2 = pd.DataFrame({
     "k": data["k_values"],
-    "mse_smallN_1run": data["1_run_smallN_mse"],
-    "mse_largeN_1run": data["1_run_largeN_mse"],
-    "avg_smallN": data["avgruns_smallN_mse"],
-    "avg_largeN": data["avgruns_largeN_mse"]
+    f"Train\\, $N={smallN},\\, r=1$": data["1_run_smallN_mse"],
+    f"Test\\, $N={largeN},\\, r=1$": data["1_run_largeN_mse"],
+    f"Train\\, $N={smallN},\\, r={r}$": data["avgruns_smallN_mse"],
+    f"Test\\, $N={largeN},\\, r={r}$": data["avgruns_largeN_mse"],
 })
-
+df2.rename(columns=lambda x: x.replace("_", "\\_"), inplace=True)
 df_to_tex(df2, "Q2/results_poly.tex")
+
 
 
 print('Q3')
@@ -312,14 +374,17 @@ experiment_Q2_b_d('Q3',30, 1000, 100, k_values, basis_func=sin_basis)
 plt.show()
 plt.close('all')
 
-with open("results/Q3/results_sin.json") as f:
+with open("outputs/results/Q3/results_sin.json") as f:
     data = json.load(f)
+smallN = data["smallN"]
+largeN = data["largeN"]
+r = data["r"]
 df2 = pd.DataFrame({
     "k": data["k_values"],
-    "mse_smallN_1run": data["1_run_smallN_mse"],
-    "mse_largeN_1run": data["1_run_largeN_mse"],
-    "avg_smallN": data["avgruns_smallN_mse"],
-    "avg_largeN": data["avgruns_largeN_mse"]
+    f"Train\\, $N={smallN},\\, r=1$": data["1_run_smallN_mse"],
+    f"Test\\, $N={largeN},\\, r=1$": data["1_run_largeN_mse"],
+    f"Train\\, $N={smallN},\\, r={r}$": data["avgruns_smallN_mse"],
+    f"Test\\, $N={largeN},\\, r={r}$": data["avgruns_largeN_mse"],
 })
-
+df2.rename(columns=lambda x: x.replace("_", "\\_"), inplace=True)
 df_to_tex(df2, "Q3/results_sin.tex")
