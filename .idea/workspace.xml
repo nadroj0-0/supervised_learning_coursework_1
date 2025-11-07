@@ -4,12 +4,58 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea8b6040-d574-472c-ada6-eb69d1bf684c" name="Changes" comment="Polished alot of stuff, notebook are complete, accurate and functional, comments needed">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Part 1 Q 1-3.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Part 1 Q 1-3.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Part 1 Q 4-5.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Part 1 Q 4-5.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Part1_Q1-3.py" beforeDir="false" afterPath="$PROJECT_DIR$/Part1_Q1-3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Part1_Q4.py" beforeDir="false" afterPath="$PROJECT_DIR$/Part1_Q4.py" afterDir="false" />
+    <list default="true" id="ea8b6040-d574-472c-ada6-eb69d1bf684c" name="Changes" comment="Finished notebooks, removed redundant prints. Comments needed still">
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/figures/Q1/poly_fits_k.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/figures/Q2/ln_test_error_vs_poly_N=1000_r=1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/figures/Q2/ln_test_error_vs_poly_N=1000_r=100.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/figures/Q2/ln_train_error_vs_poly_N=30_r=1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/figures/Q2/ln_train_error_vs_poly_N=30_r=100.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/figures/Q2/poly_basis_degree_k.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/figures/Q2/sin_data_gen.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/figures/Q3/ln_test_error_vs_sin_N=1000_r=1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/figures/Q3/ln_test_error_vs_sin_N=1000_r=100.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/figures/Q3/ln_train_error_vs_sin_N=30_r=1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/figures/Q3/ln_train_error_vs_sin_N=30_r=100.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/figures/Q5/crossval_surface.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/figures/Q6/hsv_visual.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/figures/Q7/gen_error.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/figures/Q8/optimal_km.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/results/Q1/results.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/results/Q2/results_poly.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/results/Q3/results_sin.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/results/Q4/all_attributes.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/results/Q4/attribute_0.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/results/Q4/attribute_1.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/results/Q4/attribute_10.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/results/Q4/attribute_11.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/results/Q4/attribute_2.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/results/Q4/attribute_3.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/results/Q4/attribute_4.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/results/Q4/attribute_5.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/results/Q4/attribute_6.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/results/Q4/attribute_7.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/results/Q4/attribute_8.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/results/Q4/attribute_9.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/results/Q4/naive.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/results/Q5/Q5a.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/results/Q5/Q5b_surface.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/results/Q5/best_params.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/results/Q5/krr_mse.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/results/Q5/krr_single_run.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/results/Q5/summary.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/results/Q7/gen_error.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/results/Q8/optimal_k.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/tex/Q1/results.tex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/tex/Q2/results_poly.tex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/tex/Q3/results_sin.tex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/tex/Q4/full_attr_weights.tex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/tex/Q4/single_attr.tex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/tex/Q5/Q5a.tex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/tex/Q5/Q5b_surface.tex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/tex/Q5/Q5c.tex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission/outputs/tex/Q5/summary.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Part 1 Q 1-3.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Submission/Part 1 Q 1-3.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Part 1 Q 4-5.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Submission/Part 1 Q 4-5.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,22 +109,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python.Part1.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Part1_Q1-3.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Part1_Q1_3.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Part1_Q4.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Q1.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;jordan&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/jordansydney-darlin/Documents/University/Data Science with Machine Learning/Supervised learning/Coursework/Coursework 1 Supervised Learning&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.Part1.executor": "Run",
+    "Python.Part1_Q1-3.executor": "Run",
+    "Python.Part1_Q1_3.executor": "Run",
+    "Python.Part1_Q4.executor": "Run",
+    "Python.Q1.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "jordan",
+    "last_opened_file_path": "/Users/jordansydney-darlin/Documents/University/Data Science with Machine Learning/Supervised learning/Coursework/Coursework 1 Supervised Learning/Submission",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -338,7 +384,15 @@
       <option name="project" value="LOCAL" />
       <updated>1762538389555</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Finished notebooks, removed redundant prints. Comments needed still">
+      <option name="closed" value="true" />
+      <created>1762542823123</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1762542823123</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -365,7 +419,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Q1.1 graph added" />
     <MESSAGE value="Q1.2" />
     <MESSAGE value="Q1.2 modularised" />
     <MESSAGE value="Q2.b, Q2.c" />
@@ -390,6 +443,18 @@
     <MESSAGE value="Added save figures, save json, and save latex functions for writing up in latex" />
     <MESSAGE value="added figures, json, tex folders" />
     <MESSAGE value="Polished alot of stuff, notebook are complete, accurate and functional, comments needed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Polished alot of stuff, notebook are complete, accurate and functional, comments needed" />
+    <MESSAGE value="Finished notebooks, removed redundant prints. Comments needed still" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished notebooks, removed redundant prints. Comments needed still" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
+          <url>file://$PROJECT_DIR$/Submission/Part 1 Q 1-3.ipynb</url>
+          <line>5</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
