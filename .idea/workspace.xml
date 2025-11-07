@@ -4,30 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea8b6040-d574-472c-ada6-eb69d1bf684c" name="Changes" comment="added figures, json, tex folders">
-      <change afterPath="$PROJECT_DIR$/Report.ipynb" afterDir="false" />
+    <list default="true" id="ea8b6040-d574-472c-ada6-eb69d1bf684c" name="Changes" comment="Polished alot of stuff, notebook are complete, accurate and functional, comments needed">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Figures/Q1/poly_fits_k.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Figures/Q2/ln_train_error_vs_poly_N=1000_r=1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Figures/Q2/ln_train_error_vs_poly_N=1000_r=100.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Figures/Q2/ln_train_error_vs_poly_N=30_r=1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Figures/Q2/ln_train_error_vs_poly_N=30_r=100.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Figures/Q2/poly_basis_degree_k.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Figures/Q2/sin_data_gen.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Figures/Q3/ln_train_error_vs_sin_N=1000_r=1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Figures/Q3/ln_train_error_vs_sin_N=1000_r=100.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Figures/Q3/ln_train_error_vs_sin_N=30_r=1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Figures/Q3/ln_train_error_vs_sin_N=30_r=100.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Part 1 Q 1-3.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Part 1 Q 1-3.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Part 1 Q 4-5.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Part 1 Q 4-5.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Part1_Q1-3.py" beforeDir="false" afterPath="$PROJECT_DIR$/Part1_Q1-3.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Part1_Q4.py" beforeDir="false" afterPath="$PROJECT_DIR$/Part1_Q4.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Q1/results.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Q2/results_poly.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/Q3/results_sin.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tex/Q1/results.tex" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tex/Q2/results_poly.tex" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tex/Q3/results_sin.tex" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -348,7 +330,15 @@
       <option name="project" value="LOCAL" />
       <updated>1762274680401</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Polished alot of stuff, notebook are complete, accurate and functional, comments needed">
+      <option name="closed" value="true" />
+      <created>1762538389555</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1762538389555</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -375,7 +365,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Q1.1" />
     <MESSAGE value="Q1.1 graph added" />
     <MESSAGE value="Q1.2" />
     <MESSAGE value="Q1.2 modularised" />
@@ -400,6 +389,7 @@
     <MESSAGE value="Q1-5 jupyter notebook" />
     <MESSAGE value="Added save figures, save json, and save latex functions for writing up in latex" />
     <MESSAGE value="added figures, json, tex folders" />
-    <option name="LAST_COMMIT_MESSAGE" value="added figures, json, tex folders" />
+    <MESSAGE value="Polished alot of stuff, notebook are complete, accurate and functional, comments needed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Polished alot of stuff, notebook are complete, accurate and functional, comments needed" />
   </component>
 </project>

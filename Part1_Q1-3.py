@@ -26,6 +26,13 @@ def save_json(data: dict, filename: str):
 def df_to_tex(df, filename: str):
     path = os.path.join("outputs", "tex", filename)
     os.makedirs(os.path.dirname(path), exist_ok=True)
+    # Force all numeric-looking columns to floats
+    for col in df.columns:
+        try:
+            df[col] = pd.to_numeric(df[col])
+        except Exception:
+            pass
+
     df.to_latex(path, index=False, float_format="%.4f")
 
 
@@ -353,6 +360,11 @@ experiment_Q2_b_d('Q2',30, 1000, 100, k_values)
 
 with open("outputs/results/Q2/results_poly.json") as f:
     data = json.load(f)
+# Ensure numeric lists are true floats
+for key in ["1_run_smallN_mse", "1_run_largeN_mse",
+            "avgruns_smallN_mse", "avgruns_largeN_mse"]:
+    data[key] = [float(x) for x in data[key]]
+
 smallN = data["smallN"]
 largeN = data["largeN"]
 r = data["r"]
@@ -376,6 +388,11 @@ plt.close('all')
 
 with open("outputs/results/Q3/results_sin.json") as f:
     data = json.load(f)
+# Ensure numeric lists are true floats
+for key in ["1_run_smallN_mse", "1_run_largeN_mse",
+            "avgruns_smallN_mse", "avgruns_largeN_mse"]:
+    data[key] = [float(x) for x in data[key]]
+
 smallN = data["smallN"]
 largeN = data["largeN"]
 r = data["r"]

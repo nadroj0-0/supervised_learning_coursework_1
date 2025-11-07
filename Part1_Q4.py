@@ -30,6 +30,11 @@ def save_json(data: dict, filename: str):
 def df_to_tex(df, filename: str):
     path = os.path.join("outputs", "tex", filename)
     os.makedirs(os.path.dirname(path), exist_ok=True)
+    for col in df.columns:
+        try:
+            df[col] = pd.to_numeric(df[col])
+        except Exception:
+            pass
     df.to_latex(path, index=False, float_format="%.4f", escape=False)
 
 def json_to_tex(data: dict, filename: str):
