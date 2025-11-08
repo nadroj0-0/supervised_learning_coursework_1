@@ -1,0 +1,521 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{mathptmx}
+\usepackage{courier}
+\usepackage[scaled]{helvet}
+\renewcommand{\familydefault}{\rmdefault}
+
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\captionsetup{font=small,labelfont=bf}
+\usepackage[hidelinks]{hyperref}
+
+\usepackage[compact]{titlesec}
+\titlespacing{\section}{0pt}{*2}{*1}
+\titlespacing{\subsection}{0pt}{*1.5}{*0.5}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+\usepackage{setspace}
+\onehalfspacing
+
+\setcounter{secnumdepth}{2}
+\usepackage{tabularx}
+\usepackage{mathtools}
+
+
+\title{Supervised Learning COMP0048 : Coursework 1}
+\author{Jordan Sydney-Darling 20127163, Daniel Pulido 25164517}
+\date{November 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+    \raisebox{-0.5\height}{\includegraphics[width=2.5cm]{University_College_London_logo.svg.png}}
+\end{center}
+\vspace{0.5cm}
+
+
+\section{Part I}
+
+\subsection{Linear Regression}
+
+\subsubsection{Q1}
+\subsubsection*{(a)}
+Polynomial basis models of degree k = 1 2 3 4 fitted to the data
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{outputs/figures/Q1/poly_fits_k.png}
+    \caption{Fitted polynomial models of degree $k$ on four data points. Higher degree models interpolate the data and achieve almost 0 training error.}
+    \label{fig:q1_poly_fits}
+\end{figure}
+\subsubsection*{(b)}
+The general polynomial regression model of degree $k$ can be written as:
+\[
+y(x) = w_0 + w_1 x + w_2 x^2 + \dots + w_k x^k
+\]
+Refer to Table~\ref{tab:q1_weights} for the corresponding fitted weights.
+
+\subsubsection*{(c)}
+MSE of the models
+\begin{table}[H]
+    \centering
+    \input{outputs/tex/Q1/results.tex}
+    \caption{Weights, $w_i$, and training error for polynomial models of degree $k$.}
+    \label{tab:q1_weights}
+\end{table}
+
+
+
+\subsubsection{Q2}
+\subsubsection*{(a)}
+\textbf{(i)}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{outputs/figures/Q2/sin_data_gen.png}
+    \caption{Generated samples from g(x)=$sin^2(2{\pi}x)$ with Gaussian noise, alongside the true underlying function.}
+    \label{fig:q2_noisy_samples}
+\end{figure}
+\textbf{(ii)}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{outputs/figures/Q2/poly_basis_degree_k.png}
+    \caption{Polynomial models of increasing degree fitted to noisy samples. Underfitting occurs at low $k$, higher $k$ captures noise and overfits.}
+    \label{fig:q2_poly_fits}
+\end{figure}
+\subsubsection*{(b)}
+Variation in the training error with the degree, $k$, of the polynomial basis functions
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{outputs/figures/Q2/ln_train_error_vs_poly_N=30_r=1.png}
+    \caption{Training error decreases monotonically with increasing polynomial degree due to increasing model flexibility.}
+    \label{fig:q2_train_vs_poly_N30_r1}
+\end{figure}
+\subsubsection*{(c)}
+Variation in the test error with the degree, $k$, of the polynomial basis functions
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{outputs/figures/Q2/ln_test_error_vs_poly_N=1000_r=1.png}
+    \caption{With more data, training error decreases smoothly and the benefits of additional complexity are less.}
+    \label{fig:q2_test_vs_poly_N1000_r1}
+\end{figure}
+\subsubsection*{(d)}
+Variation in the training  and test error with the degree, $k$, of the polynomial basis functions, averaged over 100 runs
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{outputs/figures/Q2/ln_train_error_vs_poly_N=30_r=100.png}
+    \caption{Averaged across many runs, high-degree models show increased variance and worse generalisation due to overfitting on small datasets.}
+    \label{fig:q2_train_vs_poly_N30_r100}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{outputs/figures/Q2/ln_test_error_vs_poly_N=1000_r=100.png}
+    \caption{Larger datasets reduce variance and delay overfitting; training curves flatten as model complexity increases.}
+    \label{fig:q2_test_vs_poly_N1000_r100}
+\end{figure}
+\begin{table}[H]
+    \centering
+    \input{outputs/tex/Q2/results_poly}
+    \caption{Training and test error, MSE, for polynomial models of degree $k$, $N$ data points, and $r$ runs.}
+    \label{tab:q2_mse}
+\end{table}
+\subsubsection{Q3 Sinusoidal Model}
+Repeat of Q2 (b-d) using the basis $\{\sin(\pi x), \sin(2\pi x), \sin(3\pi x), \ldots, \sin(k\pi x)\}$
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{outputs/figures/Q3/ln_train_error_vs_sin_N=30_r=1.png}
+    \caption{Training error versus sinusoidal basis dimension for small datasets. High-frequency components overfit noise.}
+    \label{fig:q3_train_vs_sin_N30_r1}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{outputs/figures/Q3/ln_test_error_vs_sin_N=1000_r=1.png}
+    \caption{Test error.}
+    \label{fig:q3_test_vs_sin_N1000_r1}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{outputs/figures/Q3/ln_train_error_vs_sin_N=30_r=100.png}
+    \caption{Train error, r=100.}
+    \label{fig:q3_train_vs_sin_N30_r100}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{outputs/figures/Q3/ln_test_error_vs_sin_N=1000_r=100.png}
+    \caption{Test error, r=100.}
+    \label{fig:q3_test_vs_sin_N1000_r100}
+\end{figure}
+\begin{table}[H]
+    \centering
+    \input{outputs/tex/Q3/results_sin}
+    \caption{Training and test error, MSE, for sinusoidal models of degree $k$, $N$ data points, and $r$ runs.}
+    \label{tab:q3_mse}
+\end{table}
+
+
+\subsection{Filtered Boston housing and kernels}
+\subsubsection{4}
+\subsubsection*{(a) Naive Regression, averaged over 20 runs}
+Train MSE $= 84.54296 \pm 5.52900$, Test MSE $= 84.47044 \pm 11.03504$, $w_0$ : 22.05312
+
+\subsubsection*{(b)}
+The constant function of ones predicts the mean y value of the training data and ignores all the input features.
+\subsubsection*{(c) Linear Regression with single attributes, averaged over 20 runs}
+\begin{table}[H]
+    \centering
+    \input{outputs/tex/Q4/single_attr}
+    \caption{Average training and test MSE (± one standard deviation) for linear regression using a single attribute plus bias, evaluated over 20 random train/test splits. Attribute numbers correspond to the Boston Housing column indices.}
+    \label{tab:q4_single_attr}
+\end{table}
+
+
+
+\subsubsection*{(d) Linear Regression with all attributes, averaged over 20 runs}
+Train MSE $= 22.27992 \pm 1.69230$, Test MSE $= 23.97525 \pm 3.67887$.
+
+\begin{table}[H]
+\centering
+\input{outputs/tex/Q4/full_attr_weights.tex}
+\caption{Weights learned by the full linear regression model using all attributes.}
+\label{tab:q4_full_weights}
+\end{table}
+
+
+
+\subsection{Kernelised ridge regression}
+\subsubsection{Q5}
+\subsubsection*{(a)}
+\begin{center}
+\input{outputs/tex/Q5/Q5a.tex}
+\end{center}
+
+
+\subsubsection*{(b)}
+3D plot of the cross-validation MSE as a function of $\sigma$ and $\gamma$
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{outputs/figures/Q5/crossval_surface.png}
+    \caption{Cross-validation surface of $\log_2(\sigma)$ vs $\log_2(\gamma)$ showing test MSE.}
+    \label{fig:q5_crossval_surface}
+\end{figure}
+
+
+\subsubsection*{(c)}
+Using the best $\sigma$ and $\gamma$ from Q5c : fig \ref{fig:q5_crossval_surface}, the MSEs are as follows
+\begin{center}
+\input{outputs/tex/Q5/Q5c.tex}
+\end{center}
+
+
+\subsubsection*{(d)}
+Table of the training and test MSEs for all the different models, averaged and tested over 20 of the same splits
+\begin{table}[H]
+    \centering
+    \input{outputs/tex/Q5/summary.tex}
+    \captionof{table}{Comparison of model performance across linear and kernel methods. Kernel ridge regression achieves the lowest average test MSE.}
+    \label{tab:q5_summary}
+\end{table}
+Kernel ridge regression achieved the lowest average test and train MSE.
+
+
+
+
+\section{Part II}
+\subsection{$k$-Nearest Neighbors}
+\subsubsection{Q6}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{outputs/figures/Q6/hsv_visual.png}
+    \caption{Decision regions of a 3-NN classifier on $[0,1]^2$ with randomly sampled training data.}
+    \label{fig:q6_knn_regions}
+\end{figure}
+\subsubsection{Q7}
+\subsubsection*{(a)}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{outputs/figures/Q7/gen_error.png}
+    \caption{Estimated generalisation error of $k$-NN as a function of $k$ using Protocol A.}
+    \label{fig:q7_gen_error}
+\end{figure}
+\subsubsection*{(b)}
+It can be observed how the generalisation error decreases sharply as K increases, until K=9 is reached. From that point onwards, the generalisation error begins to increase linearly with K.
+
+For low values of K, as the prediction depends on just a few points, this prediction can be affected by noisy points that may give a wrong prediction. As K increases, the effect of the noise is reduced, as more points are taken into account, so those nearest neighbors will have a higher chance of being representative of the general distribution of the nearby points. However, for large values of K the locality of the algorithm is lost, as points which are far away from the test point, which do not give any information about the actual point to be studied, are considered for the prediction, therefore decreasing its precision.
+\subsubsection{Q8}
+\subsubsection*{(a)}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{outputs/figures/Q8/optimal_km.png}
+    \caption{Optimal value of $k$ as a function of training set size $m$ under Protocol B.}
+    \label{fig:q8_optimal_k}
+\end{figure}
+\subsubsection*{(b)}
+The optimal value for K increases as the train dataset size gets bigger, until it reaches a maximum of K=16 at 2500 points. This increase is expected, as a bigger dataset implies a higher density of points, so more points will be needed cover the same area. However, the optimal value for K stabilises after a certain dataset size, as the amount of neighbors reaches a point in which it is enough to get a representative sample of the population surrounding the datapoint we want to classify, and no more information is needed to provide a good prediction.
+
+\section{Part III}
+\subsection{Questions}
+\subsubsection{Q9}
+\subsubsection*{(a)}
+\[
+K_c(x, z) = c + \sum_{i=1}^{n} x_i z_i,
+\quad x, z \in \mathbb{R}^{n}
+\]
+Prove that \(K_c(x, z)\) is positive semidefinite (PSD).
+
+\bigskip
+
+\[
+\text{PSD} \implies a^\top K a \ge 0 \quad \forall a \in \mathbb{R}^n
+\]
+
+\[
+a^\top K a = \sum_{i,j=1}^{n} a_i a_j K(i,j)
+\]
+
+\[
+= \sum_{i,j=1}^{n} a_i a_j \langle \phi(x_i), \phi(x_j) \rangle
+\]
+
+\[
+= \left\langle \sum_{i=1}^{n} a_i \phi(x_i), \sum_{j=1}^{n} a_j \phi(x_j) \right\rangle
+\]
+
+\[
+= \left\| \sum_{i=1}^{n} a_i \phi(x_i) \right\|^2 \ge 0
+\]
+
+$\implies$ If we can show that \(K_c(x, z)\) is an inner product of itself, it follows that
+\[
+a^\top K a \ge 0 \implies \text{PSD.}
+\]
+
+\bigskip
+
+\[
+\langle \phi(x), \phi(z) \rangle  = c + \sum_{i=1}^{n} x_i z_i
+\]
+
+\[
+\sum_{i=1}^{n} x_i z_i = x^\top z =\langle x, z \rangle
+\]
+\[\implies
+\langle \phi(x), \phi(z) \rangle  = c + x^\top z = f(x)f(z) + x^\top z
+\]
+i.e
+\[\implies
+\phi(x) =
+\begin{bmatrix}
+x \\
+f(x)
+\end{bmatrix}
+\]
+\[
+c = f(x) f(z) \quad \forall x, z
+\]
+$\implies$ function $f(\cdot)$ must be constant, $\implies c = f(\cdot)^2 \implies f(\cdot)= \sqrt{c}$
+\[
+\phi(x) =
+\begin{bmatrix}
+x \\
+\sqrt{c}
+\end{bmatrix}
+\]
+
+\[
+\langle \phi(x), \phi(z) \rangle  =
+\begin{bmatrix}
+x^\top & \sqrt{c}
+\end{bmatrix}
+\begin{bmatrix}
+z \\
+\sqrt{c}
+\end{bmatrix}
+= x^\top z + (\sqrt{c})^2 = c + \sum_{i=1}^{n} x_i z_i = K_c(x,z)
+\]
+
+If $c = 0$, then $K_c(x,z) = \sum_{i=1}^n x_i z_i = \langle x, z \rangle$ (linear kernel). Therefore, $K_c$ is a positive semidefinite kernel.
+\\\\
+If $c > 0$, then $K_c(x,z) = c + \sum_{i=1}^n x_i z_i = \langle\phi(x), \phi(z)\rangle$ with $\phi(x) = (\sqrt{c}, x_1, \ldots, x_n)$. Therefore, $K_c$ is a positive semidefinite kernel.
+\\\\
+If $c < 0$, the previous argument cannot be used, as $\sqrt{c} \notin \mathbb{R}$ when $c < 0$. In this case, it can be seen that, when taking $x=0$, $K_c(x, x) = K_c(0, 0) = c < 0$. Therefore, $K_c$ is not a positive semidefinite kernel when $c < 0$.
+\subsubsection*{(b)}
+When $c=0$, the corresponding linear regression is purely linear and forced through the origin, as there is no actual feature map applied over the data, while the case $c=1$ is equal to the standard linear regression with bias.
+\\\\
+Therefore, the variable $c$ just adds a bias to the linear regression. The value of $c$ only causes the weight associated to the bias to be divided by $\sqrt{c}$ with respect to the standard biased model (the one with $\phi(x) = (1, x))$. This causes high weights in the bias to be less penalised as $c$ increases in the regularised linear regression, allowing for higher y-intercept values for the linear predictor.
+\subsubsection{Q10}
+With the Gaussian kernel, we have the following classifier: $f_{\beta}(t) = \sum_{i=1}^m \alpha_i e^{- \beta \left\lVert x_i-t \right\rVert^2}$.
+\\\\
+Intuitively, when $\beta \rightarrow \infty$, the term $e^{- \beta \left\lVert x_i-t \right\rVert^2}$ will tend to $0$, except for the cases in which $\left\lVert x_i-t \right\rVert^2 \approx 0$. Therefore, only the points which are a very small distance away from the point $t$ will be considered. For a big enough value of $\beta$, the nearest neighbor will have a much higher value for $e^{- \beta \left\lVert x_i-t \right\rVert^2}$ than the rest, enabling the trained linear classifier to simulate 1-NN.
+\\\\
+Let's give a more rigorous proof. Let $x_n$ be the nearest neighbor, so that $\left\lVert x_n-t \right\rVert^2 \leq \left\lVert x_i-t \right\rVert^2$ for all $i \neq n$.
+\\\\
+With this notation, $\lim_{\beta \rightarrow \infty} \frac{K_{\beta}(x_i, t)}{K_{\beta}(x_n, t)} = \lim_{\beta \rightarrow \infty} \frac{e^{- \beta \left\lVert x_i-t \right\rVert^2}}{e^{- \beta \left\lVert x_n-t \right\rVert^2}} = \lim_{\beta \rightarrow \infty} e^{-\beta(\left\lVert x_i-t \right\rVert^2 - \left\lVert x_n-t \right\rVert^2)} = 0$ for $i \neq n$, as $\left\lVert x_i-t \right\rVert - \left\lVert x_n-t \right\rVert > 0$.
+\\\\
+Therefore, $f_{\beta}(t) = \alpha_n K_{\beta}(x_n, t) + \sum_{i\neq n} \alpha_i K_{\beta}(x_i, t) = K_{\beta}(x_n, t)[\alpha_n + \sum_{i\neq n} \alpha_i \frac{K_{\beta}(x_i, t)}{K_{\beta}(x_n, t)}]$. Taking limits: $$\lim_{\beta \rightarrow \infty} f_{\beta}(t) = \lim_{\beta \rightarrow \infty} K_{\beta}(x_n, t)[\alpha_n + \sum_{i\neq n} \alpha_i \frac{K_{\beta}(x_i, t)}{K_{\beta}(x_n, t)}] = \alpha_n \lim_{\beta \rightarrow \infty} K_{\beta}(x_n, t).$$
+\\\\
+We have proved that $\lim_{\beta \rightarrow \infty} f_{\beta}(t)$ only depends on the nearest neighbor. Now we must prove that the value assigned to the point t is exactly the label of the nearest neighbor.
+\\\\
+If we take a fixed, but very high value of $\beta$, $f_{\beta}(t) \approx \alpha_n K_{\beta}(x_n, t)$, as we have proved beforehand. Training the linear regressor is equivalent to minimizing the least-squares error. Taking into account that the nearest neighbor to a training point is itself, the following least-squares error formula is obtained: $\sum_{i=1}^m (y_i - f_{\beta}(x_i) )^2 = \sum_{i=1}^m (y_i - \alpha_i K_{\beta}(x_i, x_i))^2 = \sum_{i=1}^m (y_i - \alpha_i)^2$, as $K_{\beta}(x_i, x_i) =1$. Thus, the least-square error is minimized by taking $\alpha_i = y_i$ for all $i$, so $f_{\beta}(t) \approx \alpha_n K_{\beta}(x_n, t) \approx y_n$ as $K_{\beta}(x_n, t) \approx 1$ if $x_n$ and $t$ are close enough.
+\subsubsection{Q11}
+We considering the problem of generalised Whack-A-Mole on an $n$ x $n$ board. We shall denote the state of each hole as follows.
+\\\\
+1 if a mole is present
+\\0 if a mole is hidden
+\\\\
+Every time you hit a hole you'll cause the hole and the immediate four adjacent holes to change state, ie if you hit a hole in position $(i,j)$, $i, j \in n$, all the holes $(i-1, j), (i+1,j), (i,j-1), (i,j+1), (i,j)$ will change state; 1s become 0s and vice versa.\\
+Note that in the edge cases where an adjacent hole does not exist as it is outside the $n$ x $n$ board, we can just ignore that point.
+\\\\
+We are tasked with designing an algorithm which, given an intial board configuration, finds a sequence of holes that can be hit in order to empty the board if such a sequence exists. Additionally the algorithm must be polynomial in $n$
+\\\\
+First we shall encode the effect of hitting a specific whole.
+As an example lets use an $3$ x $3$ board.\\
+We shall give each hole a unique number ie.\\\\
+\begin{equation}
+\begin{bmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+7 & 8 & 9
+\end{bmatrix}
+\end{equation}
+\\\\
+Now lets consider the effect of hitting hole 1, the holes 1, 2 and 4 would change state and all other holes would remain unchanged. We can represent this as a $1$ x $n^2$ row vector.\\\\
+\[
+\overset{\begin{matrix}
+1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9
+\end{matrix}}
+{\underset{\text{hole }1}{
+\begin{bmatrix}
+1 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 0
+\end{bmatrix}
+}}
+\\\\
+\]
+Alternatively if we were to consider hitting hole 5, holes 2, 4, 6, 8 would change state and all other holes would remain unchanged.\\\\
+\[
+\overset{\begin{matrix}
+1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9
+\end{matrix}}
+{\underset{\text{hole }5}{
+\begin{bmatrix}
+0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0
+\end{bmatrix}
+}}
+\]
+\\\\
+If we stack these row vectors for all holes we arrive at a full $n^2$ x $n^2$ effects matrix\\\\
+\[
+A =
+\begin{array}{c|ccccccccc}
+  & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\ \hline
+1 & 1 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+2 & 1 & 1 & 1 & 0 & 1 & 0 & 0 & 0 & 0 \\
+3 & 0 & 1 & 1 & 0 & 0 & 1 & 0 & 0 & 0 \\
+4 & 1 & 0 & 0 & 1 & 1 & 0 & 1 & 0 & 0 \\
+5 & 0 & 1 & 0 & 1 & 1 & 1 & 0 & 1 & 0 \\
+6 & 0 & 0 & 1 & 0 & 1 & 1 & 0 & 0 & 1 \\
+7 & 0 & 0 & 0 & 1 & 0 & 0 & 1 & 1 & 0 \\
+8 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 1 & 1 \\
+9 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 1
+\end{array}
+\]
+\\\\
+Now lets define a new $n^2$ x $1$ vector $S$, that defines the initial condition.
+e.g
+\\\\
+\[
+\begin{bmatrix}
+1 & 0 & 1 \\
+1 & 1 & 0 \\
+0 & 1 & 1
+\end{bmatrix}
+\;\longrightarrow\;
+S =
+{
+\overset{\mathclap{\begin{matrix}
+1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9
+\end{matrix}}}{
+\begin{bmatrix}
+1 & 0 & 1 & 1 & 1 & 0 & 0 & 1 & 1
+\end{bmatrix}
+^{\mathsf T}}
+}
+\]
+\\\\
+Therefore we are looking for an $x$ (a sequence of holes we can hit), that satifies $Ax=S$\\
+Each time we hit a hole, that hole and the adjacent ones change states between states:
+a visible mole ($1$) becomes hidden ($0$) and vice versa.
+If we hit the same hole again all affected holes change back
+and the board returns to exactly the same state it was in before.
+
+This means that hitting a hole an even number of times has no overall affect, while hitting it an odd number of times changes its state once.
+Therefore we can descirbe this using the XOR operation, which represents the hit once to change, hit twice to cancel rule:
+\[
+1 \text{ XOR } 1 = 0, \quad
+1 \text{ XOR } 0 = 1, \quad
+0 \text{ XOR } 1 = 1, \quad
+0 \text{ XOR } 0 = 0.
+\]
+
+This can we solved using Gaussian elimination using XOR row operations.
+\\\\
+\[
+A|S =
+\left[
+\begin{array}{ccccccccc|c}
+1 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 1 \\
+1 & 1 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+0 & 1 & 1 & 0 & 0 & 1 & 0 & 0 & 0 & 1 \\
+1 & 0 & 0 & 1 & 1 & 0 & 1 & 0 & 0 & 1 \\
+0 & 1 & 0 & 1 & 1 & 1 & 0 & 1 & 0 & 1 \\
+0 & 0 & 1 & 0 & 1 & 1 & 0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1 & 0 & 0 & 1 & 1 & 0 & 0 \\
+0 & 0 & 0 & 0 & 1 & 0 & 1 & 1 & 1 & 1 \\
+0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 1 & 1
+\end{array}
+\right]
+\]
+\\\\
+An example would be, $R_4$ \leftarrow $R_1 \oplus R_4$ (using XOR operation)
+\[
+\begin{aligned}
+R_1 &=
+\left[\begin{array}{ccccccccc|c}
+1 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 1
+\end{array}\right],\\[4pt]
+R_4 &=
+\left[\begin{array}{ccccccccc|c}
+1 & 0 & 0 & 1 & 1 & 0 & 1 & 0 & 0 & 1
+\end{array}\right],\\[4pt]
+R_1 \oplus R_4 &=
+\left[\begin{array}{ccccccccc|c}
+0 & 1 & 0 & 0 & 1 & 0 & 1 & 0 & 0 & 0
+\end{array}\right] \;=\; R_4^{(\text{new})}
+\end{aligned}
+\]
+If we repeat this process until we obtain the identity matrix, $I$, on the left hand side we have successfully solved the problem, and we can read off vector $x$ from the right. Alternatively if we end up with a contradiction there is no solution.
+\[
+\textbf{Contradiction:}\quad
+\left[\begin{array}{ccccccccc|c}
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1
+\end{array}\right]
+\;\Rightarrow\;
+\]
+\[
+\text{The system is inconsistent and there is no solution.}
+\]
+This fully describes our algorithm. In terms of complexity, when we compute our matrix $A$, we are computing an $n^2$ x $n^2$ matrix therefore we have $O(n^4)$. We then do guassian elemination which take $O(m^3)$ for an $m$ x $m$ matrix, therfore the guassian eleminatoin takes $O((n^2)^3)$ = $O(n^6)$. \\\\
+Our entire algorithm therefore takes $O(n^4)$ + $O(n^6)$ = $O(n^6)$ which is polynomial in $n$
+
+
+\newpage
+
+\end{document}
