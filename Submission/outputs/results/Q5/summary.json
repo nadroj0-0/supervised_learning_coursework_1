@@ -1,0 +1,79 @@
+{
+    "methods": [
+        {
+            "method": "Naive Regression",
+            "mse_train": "84.54296306210321\u00b15.528999666563973",
+            "mse_test": "84.47043682903508\u00b111.03504107965914"
+        },
+        {
+            "method": "Linear Regression (attribute 0)",
+            "mse_train": "71.24928461936693\u00b15.02150773909797",
+            "mse_test": "73.91213710946536\u00b110.670439713387081"
+        },
+        {
+            "method": "Linear Regression (attribute 1)",
+            "mse_train": "74.1933902726768\u00b14.4562826578868675",
+            "mse_test": "72.3831005127153\u00b18.99867464010775"
+        },
+        {
+            "method": "Linear Regression (attribute 2)",
+            "mse_train": "64.91553821103508\u00b14.459446592689361",
+            "mse_test": "64.55971248350953\u00b19.080223027741374"
+        },
+        {
+            "method": "Linear Regression (attribute 3)",
+            "mse_train": "82.01689163114625\u00b15.255390303356565",
+            "mse_test": "82.19306104552274\u00b110.898412327526456"
+        },
+        {
+            "method": "Linear Regression (attribute 4)",
+            "mse_train": "69.47586165627321\u00b14.560529169566954",
+            "mse_test": "68.4828239833001\u00b19.209771831568405"
+        },
+        {
+            "method": "Linear Regression (attribute 5)",
+            "mse_train": "43.35705959346741\u00b13.0957879198072513",
+            "mse_test": "44.46112005254263\u00b16.059239519573888"
+        },
+        {
+            "method": "Linear Regression (attribute 6)",
+            "mse_train": "72.6851680752261\u00b14.938381164192815",
+            "mse_test": "72.2589420158495\u00b19.927584568450461"
+        },
+        {
+            "method": "Linear Regression (attribute 7)",
+            "mse_train": "79.43879565989793\u00b15.398612926057798",
+            "mse_test": "78.97676614303161\u00b110.81822398478639"
+        },
+        {
+            "method": "Linear Regression (attribute 8)",
+            "mse_train": "71.9284635194646\u00b15.010802439932486",
+            "mse_test": "73.07947804526643\u00b110.106950281982522"
+        },
+        {
+            "method": "Linear Regression (attribute 9)",
+            "mse_train": "65.58703058104685\u00b14.601090266585236",
+            "mse_test": "66.96810011457963\u00b19.251114028807393"
+        },
+        {
+            "method": "Linear Regression (attribute 10)",
+            "mse_train": "62.35007075119321\u00b14.093238779197018",
+            "mse_test": "63.832677983367944\u00b18.299718045533652"
+        },
+        {
+            "method": "Linear Regression (attribute 11)",
+            "mse_train": "38.69800594422196\u00b12.3944598054132333",
+            "mse_test": "38.50402770569773\u00b14.751564112613326"
+        },
+        {
+            "method": "Linear Regression (all attributes)",
+            "mse_train": "22.279920765123517\u00b11.692303544417437",
+            "mse_test": "23.975248452710762\u00b13.678874623079188"
+        },
+        {
+            "method": "Kernel Ridge Regression",
+            "mse_train": "8.339972440783397\u00b11.5529992166226507",
+            "mse_test": "12.05328196611003\u00b11.9798986996063965"
+        }
+    ]
+}
