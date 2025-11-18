@@ -104,7 +104,7 @@ Variation in the test error with the degree, $k$, of the polynomial basis functi
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{outputs/figures/Q2/ln_test_error_vs_poly_N=1000_r=1.png}
-    \caption{With more data, training error decreases smoothly and the benefits of additional complexity are less.}
+    \caption{Test MSE for a single run of polynomial regression, showing how increasing model degree first reduces error before overfitting increases it again.}
     \label{fig:q2_test_vs_poly_N1000_r1}
 \end{figure}
 \subsubsection*{(d)}
@@ -112,13 +112,13 @@ Variation in the training  and test error with the degree, $k$, of the polynomia
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{outputs/figures/Q2/ln_train_error_vs_poly_N=30_r=100.png}
-    \caption{Averaged across many runs, high-degree models show increased variance and worse generalisation due to overfitting on small datasets.}
+    \caption{Average training MSE over 100 repetitions, illustrating the monotonic decrease in error as model complexity increases.}
     \label{fig:q2_train_vs_poly_N30_r100}
 \end{figure}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{outputs/figures/Q2/ln_test_error_vs_poly_N=1000_r=100.png}
-    \caption{Larger datasets reduce variance and delay overfitting; training curves flatten as model complexity increases.}
+    \caption{Average test MSE over 100 repetitions, showing a U-shaped curve where moderate polynomial degrees generalise best.}
     \label{fig:q2_test_vs_poly_N1000_r100}
 \end{figure}
 \begin{table}[H]
@@ -133,25 +133,25 @@ Repeat of Q2 (b-d) using the basis $\{\sin(\pi x), \sin(2\pi x), \sin(3\pi x), \
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{outputs/figures/Q3/ln_train_error_vs_sin_N=30_r=1.png}
-    \caption{Training error versus sinusoidal basis dimension for small datasets. High-frequency components overfit noise.}
+    \caption{Training MSE for a single run using sinusoidal basis, showing decreasing error as k increases}
     \label{fig:q3_train_vs_sin_N30_r1}
 \end{figure}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{outputs/figures/Q3/ln_test_error_vs_sin_N=1000_r=1.png}
-    \caption{Test error.}
+    \caption{Average test MSE over a single run using sinusoidal basis, with smallest error at medium k and overfitting for large k}
     \label{fig:q3_test_vs_sin_N1000_r1}
 \end{figure}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{outputs/figures/Q3/ln_train_error_vs_sin_N=30_r=100.png}
-    \caption{Train error, r=100.}
+    \caption{Average training MSE over 100 repetitions using sinusoidal basis, consistently decreasing with model complexity}
     \label{fig:q3_train_vs_sin_N30_r100}
 \end{figure}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{outputs/figures/Q3/ln_test_error_vs_sin_N=1000_r=100.png}
-    \caption{Test error, r=100.}
+    \caption{Average test MSE over 100 repetitions using sinusoidal basis, again showing best generalisation at moderate k}
     \label{fig:q3_test_vs_sin_N1000_r100}
 \end{figure}
 \begin{table}[H]
@@ -210,7 +210,7 @@ Train MSE $= 22.27992 \pm 1.69230$, Test MSE $= 23.97525 \pm 3.67887$.
 
 
 \subsubsection*{(c)}
-Using the best $\sigma$ and $\gamma$ from Q5c : fig \ref{fig:q5_crossval_surface}, the MSEs are as follows
+Using the best $\sigma$ and $\gamma$ from Q5a : fig \ref{fig:q5_crossval_surface}, the MSEs are as follows
 \begin{center}
 \input{outputs/tex/Q5/Q5c.tex}
 \end{center}

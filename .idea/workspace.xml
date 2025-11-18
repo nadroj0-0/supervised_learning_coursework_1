@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea8b6040-d574-472c-ada6-eb69d1bf684c" name="Changes" comment="commented part1 q1-3 notebook">
+    <list default="true" id="ea8b6040-d574-472c-ada6-eb69d1bf684c" name="Changes" comment="comments all finished">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Submission/Part 1 Q 1-3.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Submission/Part 1 Q 1-3.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Report.tex" beforeDir="false" afterPath="$PROJECT_DIR$/Report.tex" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Submission/Part 1 Q 4-5.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Submission/Part 1 Q 4-5.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -370,7 +370,15 @@
       <option name="project" value="LOCAL" />
       <updated>1762644959028</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="comments all finished">
+      <option name="closed" value="true" />
+      <created>1763437522436</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1763437522436</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -397,7 +405,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Q2.b, Q2.c" />
     <MESSAGE value="Q2.d, changed lin_reg_sol to fix spikes in graph" />
     <MESSAGE value="Added true function option to plot_models func" />
     <MESSAGE value="Rearranged layout and added a few comments, also corrected k_values in q2.b" />
@@ -422,6 +429,7 @@
     <MESSAGE value="Finished notebooks, removed redundant prints. Comments needed still" />
     <MESSAGE value="Submission folder" />
     <MESSAGE value="commented part1 q1-3 notebook" />
-    <option name="LAST_COMMIT_MESSAGE" value="commented part1 q1-3 notebook" />
+    <MESSAGE value="comments all finished" />
+    <option name="LAST_COMMIT_MESSAGE" value="comments all finished" />
   </component>
 </project>
