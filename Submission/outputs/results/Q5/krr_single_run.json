@@ -1,7 +1,0 @@
-{
-    "method": "kernel_ridge_regression_single_run",
-    "train_mse": 11.55487375703943,
-    "test_mse": 12.484121479386516,
-    "best_sigma": 5792.618751480198,
-    "best_gamma": 1.8189894035458565e-12
-}
