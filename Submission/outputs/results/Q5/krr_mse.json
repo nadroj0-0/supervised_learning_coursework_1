@@ -1,7 +1,7 @@
 {
     "method": "kernel_ridge_regression",
-    "train_mean": 7.812785229699538,
-    "train_std": 2.016360567794742,
-    "test_mean": 12.356070804531921,
-    "test_std": 2.053050994262081
+    "train_mean": 8.339972440783397,
+    "train_std": 1.5529992166226507,
+    "test_mean": 12.05328196611003,
+    "test_std": 1.9798986996063965
 }

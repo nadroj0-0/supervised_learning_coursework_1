@@ -4,10 +4,34 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea8b6040-d574-472c-ada6-eb69d1bf684c" name="Changes" comment="comments all finished">
+    <list default="true" id="ea8b6040-d574-472c-ada6-eb69d1bf684c" name="Changes" comment="Finished">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Report.tex" beforeDir="false" afterPath="$PROJECT_DIR$/Report.tex" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Submission/Part 1 Q 4-5.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Submission/Part 1 Q 4-5.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Submission/outputs/figures/Q2/ln_test_error_vs_poly_N=1000_r=1.png" beforeDir="false" afterPath="$PROJECT_DIR$/Submission/outputs/figures/Q2/ln_test_error_vs_poly_N=1000_r=1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Submission/outputs/figures/Q2/ln_test_error_vs_poly_N=1000_r=100.png" beforeDir="false" afterPath="$PROJECT_DIR$/Submission/outputs/figures/Q2/ln_test_error_vs_poly_N=1000_r=100.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Submission/outputs/figures/Q2/ln_train_error_vs_poly_N=30_r=1.png" beforeDir="false" afterPath="$PROJECT_DIR$/Submission/outputs/figures/Q2/ln_train_error_vs_poly_N=30_r=1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Submission/outputs/figures/Q2/ln_train_error_vs_poly_N=30_r=100.png" beforeDir="false" afterPath="$PROJECT_DIR$/Submission/outputs/figures/Q2/ln_train_error_vs_poly_N=30_r=100.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Submission/outputs/figures/Q2/poly_basis_degree_k.png" beforeDir="false" afterPath="$PROJECT_DIR$/Submission/outputs/figures/Q2/poly_basis_degree_k.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Submission/outputs/figures/Q2/sin_data_gen.png" beforeDir="false" afterPath="$PROJECT_DIR$/Submission/outputs/figures/Q2/sin_data_gen.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Submission/outputs/figures/Q3/ln_test_error_vs_sin_N=1000_r=1.png" beforeDir="false" afterPath="$PROJECT_DIR$/Submission/outputs/figures/Q3/ln_test_error_vs_sin_N=1000_r=1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Submission/outputs/figures/Q3/ln_test_error_vs_sin_N=1000_r=100.png" beforeDir="false" afterPath="$PROJECT_DIR$/Submission/outputs/figures/Q3/ln_test_error_vs_sin_N=1000_r=100.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Submission/outputs/figures/Q3/ln_train_error_vs_sin_N=30_r=1.png" beforeDir="false" afterPath="$PROJECT_DIR$/Submission/outputs/figures/Q3/ln_train_error_vs_sin_N=30_r=1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Submission/outputs/figures/Q3/ln_train_error_vs_sin_N=30_r=100.png" beforeDir="false" afterPath="$PROJECT_DIR$/Submission/outputs/figures/Q3/ln_train_error_vs_sin_N=30_r=100.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Submission/outputs/figures/Q5/crossval_surface.png" beforeDir="false" afterPath="$PROJECT_DIR$/Submission/outputs/figures/Q5/crossval_surface.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Submission/outputs/results/Q2/results_poly.json" beforeDir="false" afterPath="$PROJECT_DIR$/Submission/outputs/results/Q2/results_poly.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Submission/outputs/results/Q3/results_sin.json" beforeDir="false" afterPath="$PROJECT_DIR$/Submission/outputs/results/Q3/results_sin.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Submission/outputs/results/Q5/Q5a.json" beforeDir="false" afterPath="$PROJECT_DIR$/Submission/outputs/results/Q5/Q5a.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Submission/outputs/results/Q5/Q5b_surface.json" beforeDir="false" afterPath="$PROJECT_DIR$/Submission/outputs/results/Q5/Q5b_surface.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Submission/outputs/results/Q5/best_params.json" beforeDir="false" afterPath="$PROJECT_DIR$/Submission/outputs/results/Q5/best_params.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Submission/outputs/results/Q5/krr_mse.json" beforeDir="false" afterPath="$PROJECT_DIR$/Submission/outputs/results/Q5/krr_mse.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Submission/outputs/results/Q5/krr_single_run.json" beforeDir="false" afterPath="$PROJECT_DIR$/Submission/outputs/results/Q5/krr_single_run.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Submission/outputs/results/Q5/summary.json" beforeDir="false" afterPath="$PROJECT_DIR$/Submission/outputs/results/Q5/summary.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Submission/outputs/tex/Q2/results_poly.tex" beforeDir="false" afterPath="$PROJECT_DIR$/Submission/outputs/tex/Q2/results_poly.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Submission/outputs/tex/Q3/results_sin.tex" beforeDir="false" afterPath="$PROJECT_DIR$/Submission/outputs/tex/Q3/results_sin.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Submission/outputs/tex/Q5/Q5a.tex" beforeDir="false" afterPath="$PROJECT_DIR$/Submission/outputs/tex/Q5/Q5a.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Submission/outputs/tex/Q5/Q5b_surface.tex" beforeDir="false" afterPath="$PROJECT_DIR$/Submission/outputs/tex/Q5/Q5b_surface.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Submission/outputs/tex/Q5/Q5c.tex" beforeDir="false" afterPath="$PROJECT_DIR$/Submission/outputs/tex/Q5/Q5c.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Submission/outputs/tex/Q5/summary.tex" beforeDir="false" afterPath="$PROJECT_DIR$/Submission/outputs/tex/Q5/summary.tex" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -378,7 +402,15 @@
       <option name="project" value="LOCAL" />
       <updated>1763437522436</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Finished">
+      <option name="closed" value="true" />
+      <created>1763439902370</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1763439902370</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -405,7 +437,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Q2.d, changed lin_reg_sol to fix spikes in graph" />
     <MESSAGE value="Added true function option to plot_models func" />
     <MESSAGE value="Rearranged layout and added a few comments, also corrected k_values in q2.b" />
     <MESSAGE value="Modularised q2b-d, did q3" />
@@ -430,6 +461,7 @@
     <MESSAGE value="Submission folder" />
     <MESSAGE value="commented part1 q1-3 notebook" />
     <MESSAGE value="comments all finished" />
-    <option name="LAST_COMMIT_MESSAGE" value="comments all finished" />
+    <MESSAGE value="Finished" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished" />
   </component>
 </project>
